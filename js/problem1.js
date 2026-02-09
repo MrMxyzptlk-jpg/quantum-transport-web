@@ -50,21 +50,22 @@ const V = 1.0;
 
 const epsAVal = document.getElementById('epsAVal');
 const epsBVal = document.getElementById('epsBVal');
+const epsCVal   = document.getElementById('epsCVal');
 const gammaVal = document.getElementById('gammaVal');
 const phiVal   = document.getElementById('phiVal');
 
 function updateLabels() {
     epsAVal.textContent = epsAInput.value;
     epsBVal.textContent = epsBInput.value;
+    epsCVal.textContent = epsCInput.value;
     gammaVal.textContent = gammaInput.value;
     phiVal.textContent = phiInput.value;
 }
 
-function transmissionDQD(E, epsA, epsB, gamma, phi) {
+function transmissionDQD(E, epsA, epsB, epsC, gamma, phi) {
     const i = math.complex(0, 1);
 
     // parameters (hardcoded for now)
-    const epsC = 0.;
     const VAB = 1.0;
     const VAC = 0.8;
     const VCB = 0.8;
@@ -95,11 +96,9 @@ function transmissionDQD(E, epsA, epsB, gamma, phi) {
         [0, 0, 0]
     ]);
 
-    const I = math.identity(3);
-
     const Gr = math.inv(
         math.subtract(
-            math.multiply(E, I),
+            math.multiply(E, math.identity(3)),
             math.add(H, SigmaL, SigmaR)
         )
     );
@@ -129,6 +128,7 @@ function transmissionDQD(E, epsA, epsB, gamma, phi) {
 function updatePlot() {
     const epsA = parseFloat(epsAInput.value);
     const epsB = parseFloat(epsBInput.value);
+    const epsC = parseFloat(epsCInput.value);
     const gamma = parseFloat(gammaInput.value);
     const phi = parseFloat(phiInput.value);
 
@@ -137,7 +137,7 @@ function updatePlot() {
 
     for (let e = -4; e <= 4; e += 0.05) {
         E.push(e);
-        T.push(transmissionDQD(e, epsA, epsB, gamma, phi));
+        T.push(transmissionDQD(e, epsA, epsB, epsC, gamma, phi));
     }
 
     Plotly.newPlot('plot', [{
@@ -155,10 +155,11 @@ function updatePlot() {
 
 const epsAInput = document.getElementById('epsA');
 const epsBInput = document.getElementById('epsB');
+const epsCInput = document.getElementById('epsC');
 const gammaInput = document.getElementById('gamma');
 const phiInput = document.getElementById('phi');
 
-[epsAInput, epsBInput, gammaInput, phiInput].forEach(el =>
+[epsAInput, epsBInput, epsCInput, gammaInput, phiInput].forEach(el =>
     el.addEventListener('input', () => {
         updateLabels();
         updatePlot();
