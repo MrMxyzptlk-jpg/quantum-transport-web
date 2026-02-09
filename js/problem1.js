@@ -63,27 +63,40 @@ function updateLabels() {
 function transmissionDQD(E, epsA, epsB, gamma, phi) {
     const i = math.complex(0, 1);
 
-    // Hamiltonian
-    const H = math.matrix([
-        [epsA, V],
-        [V, epsB]
-    ]);
+    // parameters (hardcoded for now)
+    const epsC = 0.;
+    const VAB = 1.0;
+    const VAC = 0.8;
+    const VCB = 0.8;
 
-    // Self-energies (wide-band, symmetric)
-    const phaseP = math.exp(math.multiply(i, phi / 2));
+    // Aharonov–Bohm phase (gauge choice)
+    const phaseP = math.exp(math.multiply(i,  phi / 2));
     const phaseM = math.exp(math.multiply(i, -phi / 2));
 
+    // 3×3 Hamiltonian
+    const H = math.matrix([
+        [epsA, VAB, math.multiply(VAC, phaseP)],
+        [VAB,  epsB, math.multiply(VCB, phaseM)],
+        [math.multiply(VAC, phaseM),
+         math.multiply(VCB, phaseP),
+         epsC]
+    ]);
+
+    // Self-energies (serial coupling)
     const SigmaL = math.matrix([
-        [math.complex(0, -gamma / 2), 0],
-        [0, 0]
+        [math.complex(0, -gamma / 2), 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
     ]);
 
     const SigmaR = math.matrix([
-        [0, 0],
-        [0, math.complex(0, -gamma / 2)]
+        [0, 0, 0],
+        [0, math.complex(0, -gamma / 2), 0],
+        [0, 0, 0]
     ]);
 
-    const I = math.identity(2);
+    const I = math.identity(3);
+
     const Gr = math.inv(
         math.subtract(
             math.multiply(E, I),
@@ -91,18 +104,25 @@ function transmissionDQD(E, epsA, epsB, gamma, phi) {
         )
     );
 
-    const Ga = math.transpose(math.conj(Gr));
+    const Ga = math.conj(math.transpose(Gr));
 
-    const GammaL = math.multiply(i, math.subtract(SigmaL, math.conj(math.transpose(SigmaL))));
-    const GammaR = math.multiply(i, math.subtract(SigmaR, math.conj(math.transpose(SigmaR))));
+    const GammaL = math.matrix([
+        [gamma, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0]
+    ]);
+
+    const GammaR = math.matrix([
+        [0, 0, 0],
+        [0, gamma, 0],
+        [0, 0, 0]
+    ]);
 
     const T = math.trace(
         math.multiply(GammaL, Gr, GammaR, Ga)
     );
 
-    const Tval = math.re(T);
-    return Number.isFinite(Tval) ? Math.max(0, Tval) : 0;
-
+    return Math.max(0, math.re(T));
 }
 
 
