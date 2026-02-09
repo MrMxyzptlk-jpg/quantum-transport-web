@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Problem 1 - DQD & Aharonov-Bohm</title>
+    <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<header class="site-header">
+    <nav class="nav">
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="problem1.html" class="active">Problema 1</a></li>
+            <li><a href="problem2.html">Problema 2</a></li>
+            <li><a href="problem3.html">Problema 3</a></li>
+            <li><a href="problem4.html">Problema 4</a></li>
+        </ul>
+    </nav>
+</header>
+
+<body>
+
+<h2>Problem 1 - Double Quantum Dot & Aharonov-Bohm Effect</h2>
+<p class="hint">Interactive tight-binding model for a Double Quantum Dot (Landauer formalism)</p>
+
+
+<div class="container">
+
+    <div class="left-panel">
+        <div id="graph"></div>
+
+        <div class="controls">
+            <label>ε<sub>A</sub> = <span id="epsAVal">0</span>
+            <input type="range" id="epsA" min="-2" max="2" step="0.1" value="0">
+            </label>
+
+            <label>ε<sub>B</sub> = <span id="epsBVal">0</span>
+            <input type="range" id="epsB" min="-2" max="2" step="0.1" value="0">
+            </label>
+
+            <label>Γ = <span id="gammaVal">1</span>
+            <input type="range" id="gamma" min="0.05" max="2" step="0.05" value="1">
+            </label>
+
+            <label>φ  = <span id="phiVal">0</span>
+            <input type="range" id="phi" min="0" max="6.283" step="0.1" value="0">
+            </label>
+        </div>
+    </div>
+
+    <div id="plot"></div>
+</div>
+
+
+<script src="js/problem1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+
+</body>
+</html>
