@@ -40,11 +40,11 @@
                 <input type="range" id="epsB" min="-2" max="2" step="0.1" value="0">
             </label>
 
-            <label>ε<sub>C</sub> = <span id="epsCVal">0.3</span>
-                <input type="range" id="epsC" min="-2" max="2" step="0.1" value="0.3">
+            <label>ε<sub>C</sub> = <span id="epsCVal">0</span>
+                <input type="range" id="epsC" min="-2" max="2" step="0.1" value="0">
             </label>
             <label>
-                <input type="checkbox" id="toggleC" checked>
+                <input type="checkbox" id="toggleC">
                 Enable C site
             </label>
 
@@ -62,8 +62,12 @@
     <div id="plot"></div>
 </div>
 
+<script src="js/problem1/graph.js"></script>
+<script src="js/problem1/hamiltonian.js"></script>
+<script src="js/problem1/transport.js"></script>
+<script src="js/problem1/ui.js"></script>
+<script type="module" src="js/problem1/main.js"></script>
 
-<script src="js/problem1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
 
 </body>
