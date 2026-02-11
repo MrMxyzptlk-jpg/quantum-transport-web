@@ -8,20 +8,26 @@ const cy = initGraph();
 const gammaInput = document.getElementById('gamma');
 const phiInput   = document.getElementById('phi');
 
+gammaInput.addEventListener('input', updatePlot);
+phiInput.addEventListener('input', updatePlot);
+
 function updatePlot() {
     const gamma = parseFloat(gammaInput.value);
     const phi   = parseFloat(phiInput.value);
 
+    gammaVal.textContent = gamma;
+    phiVal.textContent   = phi;
+
     const E = [];
     const T = [];
 
-    for (let e = -4; e <= 4; e += 0.05) {
-        const { H, index } = buildHamiltonianFromGraph(cy, phi);
+    const { H, index } = buildHamiltonianFromGraph(cy, phi);
+    for (let e = -4; e <= 4; e += 0.01) {
         T.push(transmission(e, H, index, gamma));
         E.push(e);
     }
 
-    Plotly.newPlot('plot', [{
+    Plotly.react('plot', [{
         x: E,
         y: T,
         mode: 'lines'

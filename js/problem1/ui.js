@@ -2,6 +2,7 @@ export function initUI(cy, updatePlot) {
     const epsAInput = document.getElementById('epsA');
     const epsBInput = document.getElementById('epsB');
     const epsCInput = document.getElementById('epsC');
+    const phiInput   = document.getElementById('phi');
 
     const epsAVal = document.getElementById('epsAVal');
     const epsBVal = document.getElementById('epsBVal');
@@ -26,7 +27,6 @@ export function initUI(cy, updatePlot) {
     bindOnsite('B', epsBInput, epsBVal);
     bindOnsite('C', epsCInput, epsCVal);
 
-    // 🔥 centralize C activation logic
     function applyCState(on) {
         C.data('active', on);
 
@@ -39,8 +39,9 @@ export function initUI(cy, updatePlot) {
             }
         });
 
-        // disable slider when inactive
+        // disable sliders when inactive
         epsCInput.disabled = !on;
+        phiInput.disabled = !on;
     }
 
     toggleC.addEventListener('change', e => {
@@ -49,4 +50,30 @@ export function initUI(cy, updatePlot) {
     });
 
     applyCState(toggleC.checked);
+}
+
+// Generic Parameter Binder
+function bindParameter(rangeInput, numberInput, onChange) {
+
+    function updateFromRange() {
+        const val = parseFloat(rangeInput.value);
+        numberInput.value = val;
+        onChange(val);
+    }
+
+    function updateFromNumber() {
+        let val = parseFloat(numberInput.value);
+
+        val = Math.max(parseFloat(rangeInput.min), val);
+        val = Math.min(parseFloat(rangeInput.max), val);
+
+        rangeInput.value = val;
+        onChange(val);
+    }
+
+    rangeInput.addEventListener('input', updateFromRange);
+    numberInput.addEventListener('input', updateFromNumber);
+
+    // initialize
+    onChange(parseFloat(rangeInput.value));
 }

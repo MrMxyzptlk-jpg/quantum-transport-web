@@ -77,29 +77,39 @@
         <div class="controls">
             <div style="border-bottom: 1px solid #ddd; margin-bottom: 15px; padding-bottom: 10px;">
                 <label style="flex-direction: row; gap: 10px; align-items: center; cursor: pointer;">
-                    <input type="checkbox" id="toggleC" checked> 
+                    <input type="checkbox" id="toggleC" checked>
                     <span style="color: var(--text-main); font-family: inherit;">Toggle Aharonov-Bohm Loop (Site C)</span>
                 </label>
             </div>
 
             <label>ε<sub>A</sub> = <span id="epsAVal">0</span>
+                <label for="phi" class="left-label">-2</label>
                 <input type="range" id="epsA" min="-2" max="2" step="0.1" value="0">
+                <label for="phi" class="right-label">2</label>
             </label>
 
             <label>ε<sub>B</sub> = <span id="epsBVal">0</span>
+                <label for="phi" class="left-label">-2</label>
                 <input type="range" id="epsB" min="-2" max="2" step="0.1" value="0">
+                <label for="phi" class="right-label">2</label>
             </label>
 
-            <label id="labelC">ε<sub>C</sub> = <span id="epsCVal">0</span>
+            <label>ε<sub>C</sub> = <span id="epsCVal">0</span>
+                <label for="phi" class="left-label">-2</label>
                 <input type="range" id="epsC" min="-2" max="2" step="0.1" value="0">
+                <label for="phi" class="right-label">2</label>
             </label>
 
-            <label>Γ (Coupling) = <span id="gammaVal">1</span>
+            <label>Γ = <span id="gammaVal">1</span>
+                <label for="phi" class="left-label">0.05</label>
                 <input type="range" id="gamma" min="0.05" max="2" step="0.05" value="1">
+                <label for="phi" class="right-label">2</label>
             </label>
 
-            <label id="labelPhi">φ (Magnetic Phase) = <span id="phiVal">0</span>
+            <label>φ = <span id="phiVal">0</span>
+                <label for="phi" class="left-label">0</label>
                 <input type="range" id="phi" min="0" max="6.28" step="0.01" value="0">
+                <label for="phi" class="right-label">6.28 (max)</label>
             </label>
         </div>
     </div>

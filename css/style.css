@@ -56,9 +56,35 @@ h1, h2 {
     border-radius: 8px;
 }
 
+.controls span{
+    font-variant-numeric: tabular-nums;
+    display: inline-block;
+    min-width: 3.5em;
+}
+
 input[type="range"] {
+    flex: 1;
+    min-width: 50px;
     cursor: pointer;
     margin-top: 5px;
+}
+
+.left-label, .right-label {
+    font-size: 0.75rem;
+    color: #888;
+    min-width: 15px;
+    text-align: center;
+}
+
+.controls input[type="number"] {
+    width: 70px;
+    margin-left: 8px;
+}
+
+.controls label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 #plot {
@@ -166,9 +192,8 @@ input[type="range"] {
     }
 
     .left-panel {
-        max-width: 750px;
+        max-width: 97%;
         width: 100%;
-        min-width: unset;
     }
 
     #graph {
