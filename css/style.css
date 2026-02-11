@@ -1,60 +1,108 @@
+:root {
+    --primary-blue: #0047AB;
+    --accent-blue: #0074D9;
+    --bg-light: #f8f9fa;
+    --text-main: #333;
+    --text-muted: #666;
+    --border-color: #d1d5db;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
 body {
-    font-family: sans-serif;
-    margin: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdfdfd;
+    color: var(--text-main);
+    line-height: 1.6;
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+h1, h2 {
+    color: var(--primary-blue);
+    text-align: center;
 }
 
 .container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    gap: 40px;
-    align-items: flex-start;
+    grid-template-columns: 350px 1fr;
+    gap: 30px;
+    padding: 0 20px;
 }
 
 .left-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    min-width: 300px;
+    max-width: 350px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
 }
 
 #graph {
-    width: 300px;
-    height: 150px;
-    border: 1px solid #ccc;
+    width: 100%;
+    height: 200px;
+    background: #fafafa;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .controls {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 10px;background: var(--bg-light);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+input[type="range"] {
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 #plot {
-    flex: 1;
+    background: white;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--card-shadow);
+    padding: 10px;
     width: 100%;
-    height: 400px;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.hint {
+    text-align: center;
+    font-style: italic;
+    color: var(--text-muted);
 }
 
 /* ========================
    Layout
 ======================== */
 .site-header {
-    background: var(--primary-bg);
-    border-bottom: 1px solid var(--primary-bg);
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
 }
 
 .nav {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 0.5rem 2rem;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
     gap: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: var(--accent-blue);
 }
 
 .nav a {
@@ -75,6 +123,33 @@ body {
 }
 
 /* ========================
+    Problem Details
+======================== */
+.assignment-box {
+    margin: 20px 0;
+    padding: 10px 15px;
+    border-radius: 8px;
+    background: #f4f6fa;
+    border: 1px solid #d0d6e2;
+}
+
+.assignment-box summary {
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1rem;
+    outline: none;
+}
+
+.assignment-box[open] {
+    background: #eef2ff;
+}
+
+.assignment-content {
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+/* ========================
    Responsive
 ======================== */
 @media (max-width: 768px) {
@@ -85,10 +160,13 @@ body {
 
     .container {
         flex-direction: column;
+        grid-template-columns:1fr;
+        max-width: 760px;
         gap: 30px;
     }
 
     .left-panel {
+        max-width: 750px;
         width: 100%;
         min-width: unset;
     }
