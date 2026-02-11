@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem 2 - Resonant Tunneling with Decoherence</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <header class="site-header">
@@ -59,15 +65,238 @@
 
         <p><strong>References:</strong></p>
         <ul>
-        <li>D'Amato-Pastawski (PRB 1990)</li>
-        <li>Pastawski-Medina (2001)</li>
-        <li>Pastawski, Foa-Torres, Medina (2002)</li>
+            <li>D'Amato-Pastawski (PRB 1990)</li>
+            <li>Pastawski-Medina (2001)</li>
+            <li>Pastawski, Foa-Torres, Medina (2002)</li>
         </ul>
+    </div>
+</details>
+
+<details class="assignment-box">
+    <summary>Theoretical Derivation</summary>
+
+    <div class="assignment-content">
+
+    <h3>1. Model Hamiltonian</h3>
+
+    <p>We consider a single resonant level of energy \( \varepsilon_0 \) coupled to two leads \(L, R\) and to a fictitious probe \( \phi \) that models decoherence.</p>
+
+    <p>The retarded self-energies are taken in the wide-band limit:</p>
+
+    \[  \Sigma_\alpha^r = - i \Gamma_\alpha,
+        \qquad
+        \alpha = L, R, \phi.
+    \]
+
+    <p>The effective non-Hermitian Hamiltonian becomes:</p>
+
+    \[
+        H_{\text{eff}} =
+        \varepsilon_0
+        - i \left( \Gamma_L + \Gamma_R + \Gamma_\phi \right).
+    \]
+
+    <hr>
+
+    <h3>2. Retarded Green Function</h3>
+
+    <p>The retarded Green function is:</p>
+
+    \[
+        G^r(E) =
+        \frac{1}
+        {E - \varepsilon_0 + i \Gamma_{\text{tot}}},
+    \]
+
+    <p>where</p>
+
+    \[
+        \Gamma_{\text{tot}}
+        =
+        \Gamma_L + \Gamma_R + \Gamma_\phi.
+    \]
+
+    <p>Its modulus squared is:</p>
+
+    \[
+        |G^r(E)|^2
+        =
+        \frac{1}
+        {(E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2}.
+    \]
+
+    <hr>
+
+    <h3>3. Multi-terminal Landauer-Büttiker Formalism</h3>
+
+    <p>For three terminals, the current at terminal \( \alpha \) is:</p>
+
+    \[
+        I_\alpha =
+        \frac{2e}{h}
+        \sum_\beta
+        T_{\alpha\beta}
+        (\mu_\alpha - \mu_\beta).
+    \]
+
+    <p>
+    Using the Fisher-Lee relation:
+    </p>
+
+    \[
+        T_{\alpha\beta}(E)
+        =
+        4 \Gamma_\alpha \Gamma_\beta
+        |G^r(E)|^2.
+    \]
+
+    <p>Therefore,</p>
+
+    \[
+        T_{\alpha\beta}(E)
+        =
+        \frac{
+        4 \Gamma_\alpha \Gamma_\beta
+        }{
+        (E - \varepsilon_0)^2
+        +
+        \Gamma_{\text{tot}}^2
+        }.
+    \]
+
+    <hr>
+
+    <h3>4. Decoherence Probe Condition</h3>
+
+    <p>The fictitious probe does not inject net current:</p>
+
+    \[
+        I_\phi = 0.
+    \]
+
+    <p>
+    From the Landauer-Büttiker equation:
+    </p>
+
+    \[
+        0 =
+        T_{\phi L}
+        (\mu_\phi - \mu_L)
+        +
+        T_{\phi R}
+        (\mu_\phi - \mu_R).
+    \]
+
+    <p>Solving for \( \mu_\phi \):</p>
+
+    \[
+        \mu_\phi
+        =
+        \frac{
+        T_{\phi L} \mu_L
+        +
+        T_{\phi R} \mu_R
+        }{
+        T_{\phi L} + T_{\phi R}
+        }.
+    \]
+
+    <hr>
+
+    <h3>5. Effective Transmission</h3>
+
+    <p>Substituting back into the current expression for \(I_L\), one obtains the effective two-terminal transmission:</p>
+
+    \[
+        T_{LR}^{\text{eff}}
+        =
+        T_{LR}
+        +
+        \frac{
+        T_{L\phi} T_{\phi R}
+        }{
+        T_{L\phi} + T_{\phi R}
+        }.
+    \]
+
+    <p>For the single resonant level:</p>
+
+    \[
+        T_{LR}^{\text{eff}}(E)
+        =
+        \frac{
+        4 \Gamma_L \Gamma_R
+        }{
+        (E - \varepsilon_0)^2
+        +
+        \Gamma_{\text{tot}}^2
+        }
+        \left(
+        1 +
+        \frac{
+        \Gamma_\phi
+        }{
+        \Gamma_L + \Gamma_R
+        }
+        \right).
+    \]
+
+    <hr>
+
+    <h3>6. Physical Limits</h3>
+
+    <ul>
+        <li>\( \Gamma_\phi = 0 \): fully coherent Breit-Wigner resonance.</li>
+
+        <li>Small \( \Gamma_\phi \): partial decoherence and resonance broadening.</li>
+
+        <li>\( \Gamma_\phi \to \infty \): transport becomes sequential and classical.</li>
+    </ul>
+
+    <p>This model describes the crossover from coherent quantum tunneling to incoherent transport induced by environmental interactions.</p>
+
     </div>
 </details>
 
 
 
+<div class="container">
 
+    <div class="left-panel">
+
+        <div class="controls">
+
+            <label>ε₀ = <span id="epsVal">0</span>
+                <label class="left-label">-5</label>
+                <input type="range" id="eps" min="-5" max="5" step="0.1" value="0">
+                <label class="right-label">5</label>
+            </label>
+
+            <label>Γ_L = <span id="gammaLVal">1</span>
+                <label class="left-label">0.1</label>
+                <input type="range" id="gammaL" min="0.1" max="5" step="0.1" value="1">
+                <label class="right-label">5</label>
+            </label>
+
+            <label>Γ_R = <span id="gammaRVal">1</span>
+                <label class="left-label">0.1</label>
+                <input type="range" id="gammaR" min="0.1" max="5" step="0.1" value="1">
+                <label class="right-label">5</label>
+            </label>
+
+            <label>Γ_φ = <span id="gammaPhiVal">0</span>
+                <label class="left-label">0</label>
+                <input type="range" id="gammaPhi" min="0" max="50" step="0.1" value="0">
+                <label class="right-label">50</label>
+            </label>
+
+        </div>
+    </div>
+
+    <div id="plot"></div>
+
+</div>
+
+<script type="module" src="js/problem2/main.js"></script>
 </body>
 </html>
