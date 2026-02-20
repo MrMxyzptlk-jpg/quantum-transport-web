@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem 1 - DQD & Aharonov-Bohm</title>
     <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <header class="site-header">
@@ -37,34 +42,129 @@
         </p>
 
         <ol>
-        <li>
-            Derive analytical expressions for the Landauer conductance using
-            the Fisher-Lee relation.
-        </li>
-        <li>
-            Plot the transmission function for several parameter choices and discuss
-            the physical behavior.
-        </li>
-        <li>
-            Add a third orbital C providing an additional tunneling channel.
-        </li>
-        <li>
-            Introduce a magnetic field producing a flux represented by a phase
-            0 ≤ φ ≤ 2π (singular gauge).
-        </li>
-        <li>
-            Discuss interference effects (Aharonov-Bohm effect).
-        </li>
-        <li>
-            Identify antiresonances and compare them with the antiresonance
-            phenomenon in two coupled pendulums.
-        </li>
+            <li>
+                Derive analytical expressions for the Landauer conductance using
+                the Fisher-Lee relation.
+            </li>
+            <li>
+                Plot the transmission function for several parameter choices and discuss
+                the physical behavior.
+            </li>
+            <li>
+                Add a third orbital C \((V_U \neq 0)\) providing an additional tunneling channel. Introduce a magnetic field producing a flux represented by a phase
+                0 ≤ φ ≤ 2π (singular gauge).
+            </li>
+            <li>
+                Discuss interference effects (Aharonov-Bohm effect).
+            </li>
+            <li>
+                Identify antiresonances and compare them with the antiresonance
+                phenomenon in two coupled pendulums.
+            </li>
         </ol>
 
         <p><strong>Reference:</strong> D'Amato, Pastawski, Weisz (PRB 1989)</p>
     </div>
 </details>
 
+<details class="assignment-box">
+    <summary>Theoretical Derivation</summary>
+
+    <div class="assignment-content">
+
+    <h3>1. From the Fisher-Lee relation to the Landauer conductance</h3>
+
+    <p>We consider two single-level quantum dots:</p>
+    <ul>
+        <li>Orbital \(A\)</li>
+        <li>Orbital \(B\)</li>
+        <li>Coupling: \( V_{AB}\)</li>
+    </ul>
+
+    <p>The left (right) lead couples to \(A\,(B)\) via \( V_L\,(V_R) \).</p>
+    <p>The Hamiltonian is then:</p>
+
+    \[  H = \left(\begin{matrix}  \varepsilon_A & V_{AB} \\ V_{AB}^* & \varepsilon_B \end{matrix} \right)
+    \]
+
+    <details open>
+        <summary>Then, the Green's function is:</summary>
+
+        \[  \begin{align}
+            G   &= \left[ \varepsilon I - H - \Sigma \right] ^{-1} \\
+                &= \left(\begin{matrix}  \varepsilon - \varepsilon_A - \Sigma_L & -V_{AB}
+                \\ -V_{AB}^* & \varepsilon - \varepsilon_B - \Sigma_R \end{matrix} \right)^{-1}
+            \end{align}
+        \]
+
+        where \( \Sigma = \Sigma_L\ket{A}\bra{A} - \Sigma_R\ket{B}\bra{B} \) is the coupling to the leads at A (left lead) and B (right lead) respectively.
+
+        <p>Taking \( a = \varepsilon - \varepsilon_A - \Sigma_L \) and  \( b = \varepsilon - \varepsilon_B - \Sigma_R \) the Green's function takes the form:</p>
+
+        \[
+            G = \left(\begin{matrix}  a & -V_{AB} \\ -V_{AB}^* & b \end{matrix} \right)^{-1}
+        \]
+
+        <p>Which can trivially be inverted to get:</p>
+
+    </details>
+
+    \[
+        G = \frac{1}{D} \left(\begin{matrix}  b & -V_{AB} \\ -V_{AB}^* & a \end{matrix} \right)
+    \]
+
+    <p>where D is the determinant \( D = \text{Det}\{ \varepsilon I - H - \Sigma \}  = ab - |V_{AB}|^2\)</p>
+
+    <p>Remembering the Fisher-Lee relation,</p>
+
+    \[
+        T_{L,R}(E) = \text{Tr} \left\{ 2\Gamma_R G^R 2\Gamma_L G^A \right\}
+    \]
+
+    <p>and using the fact that the \( \Gamma \) matrices are diagonal in this case, we have:</p>
+
+    \[
+        T_{L,R}(E) = 4 \Gamma_R \Gamma_L \left| G_{AB}^R \right|^2
+    \]
+
+    <details>
+        <summary class="intermediate-step">Substituting this result in the Landauer formula for the conductance \( G_{LR} \) (a temperatura 0K) we get:</summary>
+
+        \[  \begin{align}
+                G_{L,R}  &= \frac{2e^2}{h} T_{L,R}(E_F)  \\
+                        &= \frac{2e^2}{h} \text{Tr} \left\{ 2\Gamma_R G_{AB}^R 2\Gamma_L G_{AB}^A \right\} \\
+                        &= \frac{8e^2}{h} \Gamma_R \Gamma_L \left| G_{AB}^R \right|^2 \\
+            \end{align}
+        \]
+
+        <p>Using the explicit expression for the Green's function, we may identify the element \( G_{AB}^R = -\frac{V_{AB}}{D}. \) The resulting conductance, then, is:</p>
+
+        \[
+                G_{L,R}  = \frac{8e^2}{h} \Gamma_R \Gamma_L \left| \frac{V_{AB}}{D} \right|^2
+        \]
+
+        <p>Finally, substituting \(D\), the full expresion is:</p>
+
+    </details>
+
+    \[
+            G_{L,R}  = \frac{8e^2}{h} \Gamma_R \Gamma_L \frac{|V_{AB}|^2}{\left| (\varepsilon - \varepsilon_A - \Sigma_L)(\varepsilon - \varepsilon_B - \Sigma_R) - |V_{AB}|^2 \right|^2}
+    \]
+<!--
+    <p>Within the wide-band approximation \( \Sigma_\alpha \approx \Gamma_\alpha \) the expression takes the form:</p>
+
+    \[
+            G_{L,R}  = \frac{8e^2}{h} \Gamma_R \Gamma_L \frac{|V_{AB}|^2}{\left| (\varepsilon - \varepsilon_A - \Sigma_L)(\varepsilon - \varepsilon_B - \Sigma_R) - |V_{AB}|^2 \right|^2}
+    \]
+-->
+
+
+
+
+
+
+
+</details>
 
 
 

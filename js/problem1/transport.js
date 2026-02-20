@@ -6,10 +6,10 @@ export function transmission(E, H, index, gamma) {
     let SigmaR = math.zeros(N, N);
 
     if ('A' in index)
-        SigmaL.set([index['A'], index['A']], math.complex(0, -gamma / 2));
+        SigmaL.set([index['A'], index['A']], math.complex(0, -gamma));
 
     if ('B' in index)
-        SigmaR.set([index['B'], index['B']], math.complex(0, -gamma / 2));
+        SigmaR.set([index['B'], index['B']], math.complex(0, -gamma));
 
     const Gr = math.inv(
         math.subtract(math.multiply(E, I), math.add(H, SigmaL, SigmaR))
@@ -28,6 +28,6 @@ export function transmission(E, H, index, gamma) {
 
     return Math.max(
         0,
-        math.re(math.trace(math.multiply(GammaL, Gr, GammaR, Ga)))
+        math.re(math.trace(math.multiply(2, GammaL, Gr, 2, GammaR, Ga)))
     );
 }

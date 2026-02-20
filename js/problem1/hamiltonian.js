@@ -30,12 +30,10 @@ export function buildHamiltonianFromGraph(cy, phi) {
 
         let hop = edge.data('V');
 
-        // AB phase convention (Problem 1 loop)
-        if ((s === 'A' && t === 'C') || (s === 'C' && t === 'B'))
-            hop = math.multiply(hop, phaseP);
+        // Ingular gauge at the BC hop
+        if (s === 'C' && t === 'B') hop = math.multiply(hop, phaseP);
 
-        if ((s === 'C' && t === 'A') || (s === 'B' && t === 'C'))
-            hop = math.multiply(hop, phaseM);
+        if (s === 'B' && t === 'C') hop = math.multiply(hop, phaseM);
 
         H.set([index[s], index[t]], hop);
         H.set([index[t], index[s]], math.conj(hop));
