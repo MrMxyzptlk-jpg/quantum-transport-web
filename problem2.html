@@ -30,7 +30,7 @@
 <h2>Problem 2 - Resonant Tunneling with Decoherence (DP Model)</h2>
 <p class="hint">Interactive tight-binding model for resonant tunneling with decoherence (DP Model)</p>
 
-<details class="assignment-box">
+<details class="assignment-box" open>
     <summary>Problem Assignment</summary>
 
     <div class="assignment-content">
@@ -39,9 +39,7 @@
         of a decoherent process described by an effective self-energy:
         </p>
 
-        <p style="text-align:center;">
-        Σ<sub>φ</sub>(E) = - i Γ<sub>φ</sub>
-        </p>
+        \[ \Sigma_\phi^R = - i \Gamma_\phi \]
 
         <p>
         This corresponds to the D'Amato-Pastawski effective non-Hermitian
@@ -54,8 +52,7 @@
             for this model.
         </li>
         <li>
-            Evaluate analytically and numerically the effective transmission
-            T<sub>LR</sub>(E).
+            Evaluate analytically and numerically the effective transmission \( T_{LR}\).
         </li>
         <li>
             Plot and discuss the behavior as a function of the incident
@@ -72,18 +69,18 @@
     </div>
 </details>
 
-<details class="assignment-box">
+<details class="assignment-box" open>
     <summary>Theoretical Derivation</summary>
 
     <div class="assignment-content">
 
-    <h3>1. Model Hamiltonian</h3>
+    <h3>1. Solving the Landauer-Büttiker current conservation equations</h3>
 
     <p>We consider a single resonant level of energy \( \varepsilon_0 \) coupled to two leads \(L, R\) and to a fictitious probe \( \phi \) that models decoherence.</p>
 
     <p>The retarded self-energies are taken in the wide-band limit:</p>
 
-    \[  \Sigma_\alpha^r = - i \Gamma_\alpha,
+    \[  \Sigma_\alpha^R = - i \Gamma_\alpha,
         \qquad
         \alpha = L, R, \phi.
     \]
@@ -96,14 +93,10 @@
         - i \left( \Gamma_L + \Gamma_R + \Gamma_\phi \right).
     \]
 
-    <hr>
-
-    <h3>2. Retarded Green Function</h3>
-
     <p>The retarded Green function is:</p>
 
     \[
-        G^r(E) =
+        G^R(E) =
         \frac{1}
         {E - \varepsilon_0 + i \Gamma_{\text{tot}}},
     \]
@@ -119,15 +112,11 @@
     <p>Its modulus squared is:</p>
 
     \[
-        |G^r(E)|^2
+        |G^R(E)|^2
         =
         \frac{1}
         {(E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2}.
     \]
-
-    <hr>
-
-    <h3>3. Multi-terminal Landauer-Büttiker Formalism</h3>
 
     <p>For three terminals, the current at terminal \( \alpha \) is:</p>
 
@@ -139,9 +128,7 @@
         (\mu_\alpha - \mu_\beta).
     \]
 
-    <p>
-    Using the Fisher-Lee relation:
-    </p>
+    <p>Using the Fisher-Lee relation:</p>
 
     \[
         T_{\alpha\beta}(E)
@@ -164,19 +151,13 @@
         }.
     \]
 
-    <hr>
-
-    <h3>4. Decoherence Probe Condition</h3>
-
     <p>The fictitious probe does not inject net current:</p>
 
     \[
         I_\phi = 0.
     \]
 
-    <p>
-    From the Landauer-Büttiker equation:
-    </p>
+    <p>From the Landauer-Büttiker equation:</p>
 
     \[
         0 =
@@ -200,10 +181,6 @@
         T_{\phi L} + T_{\phi R}
         }.
     \]
-
-    <hr>
-
-    <h3>5. Effective Transmission</h3>
 
     <p>Substituting back into the current expression for \(I_L\), one obtains the effective two-terminal transmission:</p>
 
@@ -243,7 +220,7 @@
 
     <hr>
 
-    <h3>6. Physical Limits</h3>
+    <h3>Physical Limits</h3>
 
     <ul>
         <li>\( \Gamma_\phi = 0 \): fully coherent resonance.</li>

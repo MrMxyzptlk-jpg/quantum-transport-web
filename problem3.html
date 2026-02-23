@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem 3 — DQD with Decoherence in an Aharonov-Bohm Circuit</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
 </head>
 
 <header class="site-header">
@@ -63,7 +67,196 @@
     </div>
 </details>
 
+<details class="assignment-box" open>
+    <summary>Theoretical Derivation - Decoherence in the Aharonov-Bohm DQD</summary>
 
+    <div class="assignment-content">
+
+    <h3>1. Theoretical Derivations</h3>
+
+    <p>We extend the coherent Double Quantum Dot Aharonov-Bohm circuit by including
+    independent decoherence processes acting on orbitals \( A \) and \( B \).</p>
+
+    <p>The system consists of three localized orbitals \( \{A,B,C\} \),
+    two leads \( L \) and \( R \), and a magnetic flux \( \phi \)
+    introducing a Peierls phase.</p>
+
+    <p>In the localized basis:</p>
+
+    \[
+        H_0 =
+        \begin{pmatrix}
+        \varepsilon_A & V_{AB} & V_{AC} \\
+        V_{AB} & \varepsilon_B & V_{BC} e^{i\phi} \\
+        V_{AC} & V_{BC} e^{-i\phi} & \varepsilon_C
+        \end{pmatrix}.
+    \]
+
+    <p>The phase \( \phi \) represents the Aharonov-Bohm magnetic flux.</p>
+
+    <p>Each orbital interacts independently with an environment. This is modeled by imaginary self-energies:</p>
+
+    \[
+        \Sigma_A^{(\phi)} = - i \Gamma_{\phi A},
+        \qquad
+        \Sigma_B^{(\phi)} = - i \Gamma_{\phi B}.
+    \]
+
+    <p>The effective non-Hermitian Hamiltonian becomes:</p>
+
+    \[
+        H_{\text{eff}} =
+        H_0
+        -
+        i
+        \begin{pmatrix}
+        \Gamma_{\phi A} & 0 & 0 \\
+        0 & \Gamma_{\phi B} & 0 \\
+        0 & 0 & 0
+        \end{pmatrix}.
+    \]
+
+    <p>These terms introduce phase randomization at sites \( A \) and \( B \).</p>
+
+    \[
+        G^r(E)
+        =
+        \left[
+        E I
+        -
+        H_{\text{eff}}
+        -
+        \Sigma_L
+        -
+        \Sigma_R
+        \right]^{-1}.
+    \]
+
+    <p>The lead self-energies are:</p>
+
+    \[
+        \Sigma_L = - i \Gamma_L |A\rangle\langle A|,
+        \qquad
+        \Sigma_R = - i \Gamma_R |C\rangle\langle C|.
+    \]
+
+    <p>Using the Fisher-Lee relation in matrix form:</p>
+
+    \[
+        T_{LR}(E)
+        =
+        \mathrm{Tr}
+        \left[
+        \Gamma_L
+        G^r
+        \Gamma_R
+        G^a
+        \right],
+    \]
+
+    <p>where</p>
+
+    \[
+        \Gamma_L = 2\Gamma_L |A\rangle\langle A|,
+        \qquad
+        \Gamma_R = 2\Gamma_R |C\rangle\langle C|.
+    \]
+
+    <h3>2. Effect of Decoherence on Interference</h3>
+
+    <p>In the fully coherent case:</p>
+
+    \[
+        T(\phi)
+        \propto
+        \cos^2\left(\frac{\phi}{2}\right),
+    \]
+
+    <p>leading to:</p>
+
+    <ul>
+        <li>Resonances</li>
+        <li>Antiresonances (transmission zeros)</li>
+        <li>Perfect destructive interference</li>
+    </ul>
+
+    <p>When decoherence is introduced:</p>
+
+    <ul>
+        <li>Phase memory is partially destroyed</li>
+        <li>Off-diagonal coherence is reduced</li>
+        <li>Antiresonances are lifted</li>
+        <li>Aharonov-Bohm oscillations are suppressed</li>
+    </ul>
+
+    <p>In coherent transport:</p>
+
+    \[
+        T(E_0) = 0
+    \]
+
+    <p>due to destructive interference.</p>
+
+    <p>With decoherence:</p>
+
+    \[
+        T(E_0) > 0,
+    \]
+
+    <p>because incoherent processes allow transmission even when coherent paths cancel.</p>
+
+    <hr>
+
+    <h3>Limiting Cases</h3>
+
+    <p><strong>No decoherence:</strong></p>
+
+    \[
+        \Gamma_{\phi A} = \Gamma_{\phi B} = 0
+    \]
+
+    <p>Sharp resonances and perfect antiresonances.</p>
+
+    <p><strong>Weak decoherence:</strong></p>
+
+    \[
+        \Gamma_{\phi} \ll V
+    \]
+
+    <p>Partial suppression of interference.</p>
+
+    <p><strong>Strong decoherence:</strong></p>
+
+    \[
+        \Gamma_{\phi} \gg V
+    \]
+
+    <p>Sequential classical transport.</p>
+
+    <p>Aharonov-Bohm oscillations vanish.</p>
+
+    <hr>
+
+    <h3>Origin of Irreversibility</h3>
+
+    <p>
+    Irreversibility arises from the imaginary self-energies:
+    </p>
+
+    \[
+        \mathrm{Im}\,\Sigma^{(\phi)} \neq 0.
+    \]
+
+    <p>Although the effective Hamiltonian is non-Hermitian, current conservation is restored by imposing:</p>
+
+    \[
+        I_{\phi A} = I_{\phi B} = 0.
+    \]
+
+    <p>This is the essence of the D'Amato-Pastawski decoherence model.</p>
+
+    </div>
+</details>
 
 
 
