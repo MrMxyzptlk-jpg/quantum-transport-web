@@ -4,11 +4,11 @@ export function initGraph() {
         layout: { name: 'preset' },
 
         elements: [
-            { data: { id: 'L', label: 'L' }, position: { x: 40,  y: 150 } },
+            { data: { id: 'L', label: 'L' }, classes: 'lead-site', position: { x: 40,  y: 150 } },
             { data: { id: 'A', label: 'A', eps: 0.0 }, position: { x: 120, y: 150 } },
             { data: { id: 'B', label: 'B', eps: 0.0 }, position: { x: 200, y: 150 } },
             { data: { id: 'C', label: 'C', eps: 0.0, active: false }, position: { x: 160, y: 90 } },
-            { data: { id: 'R', label: 'R' }, position: { x: 280, y: 150 } },
+            { data: { id: 'R', label: 'R' }, classes: 'lead-site', position: { x: 280, y: 150 } },
 
             { data: { source: 'L', target: 'A', label: 'ΓL' } },
             { data: { source: 'A', target: 'B', label: 'VAB', V: 1.0 } },
@@ -26,6 +26,14 @@ export function initGraph() {
                     'color': '#fff',
                     'text-valign': 'center',
                     'text-halign': 'center'
+                }
+            },
+            {
+                selector: '.lead-site',
+                style: {
+                    'border-width': 2,
+                    'border-color': '#000',
+                    'border-style': 'dashed',
                 }
             },
             {
