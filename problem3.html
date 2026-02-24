@@ -323,61 +323,63 @@
 
         <div class="controls">
 
-    <!-- Toggle Loop -->
-    <div style="border-bottom: 1px solid #ddd; margin-bottom: 15px; padding-bottom: 10px;">
-        <label style="flex-direction: row; gap: 10px; align-items: center; cursor: pointer;">
-            <input type="checkbox" id="toggleC">
-            <span>Enable Aharonov–Bohm Loop (Site C)</span>
-        </label>
+            <!-- Toggle Loop -->
+            <div style="border-bottom: 1px solid #ddd; margin-bottom: 15px; padding-bottom: 10px;">
+                <label style="flex-direction: row; gap: 10px; align-items: center; cursor: pointer;">
+                    <input type="checkbox" id="toggleC">
+                    <span>Enable Aharonov–Bohm Loop (Site C)</span>
+                </label>
+            </div>
+
+            <!-- Onsite Energies -->
+            <label>
+                ε<sub>A</sub> = <span id="epsAVal">0</span>
+                <span class="left-label">-2</span>
+                <input type="range" id="epsA" min="-2" max="2" step="0.1" value="0">
+                <span class="right-label">2</span>
+            </label>
+
+             <label>
+                 ε<sub>B</sub> = <span id="epsBVal">0</span>
+                 <span class="left-label">-2</span>
+                 <input type="range" id="epsB" min="-2" max="2" step="0.1" value="0">
+                 <span class="right-label">2</span>
+             </label>
+
+             <label>
+                 ε<sub>C</sub> = <span id="epsCVal">0</span>
+                 <span class="left-label">-2</span>
+                 <input type="range" id="epsC" min="-2" max="2" step="0.1" value="0">
+                 <span class="right-label">2</span>
+             </label>
+
+             <!-- Real Leads Coupling -->
+             <label>
+                 Γ (Leads) = <span id="gammaVal">1</span>
+                 <span class="left-label">0.05</span>
+                 <input type="range" id="gamma" min="0.05" max="2" step="0.05" value="1">
+                 <span class="right-label">2</span>
+             </label>
+
+             <!-- Decoherence Strength -->
+             <label>
+                 Γ<sub>φ</sub> (Decoherence) = <span id="gammaPhiVal">0.3</span>
+                 <span class="left-label">0</span>
+                 <input type="range" id="gammaPhi" min="0" max="50" step="0.05" value="0.3">
+                 <span class="right-label">50</span>
+             </label>
+
+             <!-- Magnetic Flux Phase -->
+             <label>
+                 α (Magnetic Flux) = <span id="alphaVal">0</span>
+                 <span class="left-label">0</span>
+                 <input type="range" id="alpha" min="0" max="6.283" step="0.01" value="0">
+                 <span class="right-label">2π</span>
+             </label>
+
+         </div>
+
     </div>
-
-    <!-- Onsite Energies -->
-    <label>
-        ε<sub>A</sub> = <span id="epsAVal">0</span>
-        <span class="left-label">-2</span>
-        <input type="range" id="epsA" min="-2" max="2" step="0.1" value="0">
-        <span class="right-label">2</span>
-    </label>
-
-    <label>
-        ε<sub>B</sub> = <span id="epsBVal">0</span>
-        <span class="left-label">-2</span>
-        <input type="range" id="epsB" min="-2" max="2" step="0.1" value="0">
-        <span class="right-label">2</span>
-    </label>
-
-    <label>
-        ε<sub>C</sub> = <span id="epsCVal">0</span>
-        <span class="left-label">-2</span>
-        <input type="range" id="epsC" min="-2" max="2" step="0.1" value="0">
-        <span class="right-label">2</span>
-    </label>
-
-    <!-- Real Leads Coupling -->
-    <label>
-        Γ (Leads) = <span id="gammaVal">1</span>
-        <span class="left-label">0.05</span>
-        <input type="range" id="gamma" min="0.05" max="2" step="0.05" value="1">
-        <span class="right-label">2</span>
-    </label>
-
-    <!-- Decoherence Strength -->
-    <label>
-        Γ<sub>φ</sub> (Decoherence) = <span id="gammaPhiVal">0.3</span>
-        <span class="left-label">0</span>
-        <input type="range" id="gammaPhi" min="0" max="50" step="0.05" value="0.3">
-        <span class="right-label">2</span>
-    </label>
-
-    <!-- Magnetic Flux Phase -->
-    <label>
-        α (Magnetic Flux) = <span id="alphaVal">0</span>
-        <span class="left-label">0</span>
-        <input type="range" id="alpha" min="0" max="6.283" step="0.01" value="0">
-        <span class="right-label">2π</span>
-    </label>
-
-</div>
 
     <div id="plot"></div>
 </div>
@@ -387,7 +389,7 @@
 <script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
-<script type="module" src="js/problems/problem3-entry.js"></script>
+<script type="module" src="js/models/decoherent_Aharonov-Bohm/app.js"></script>
 
 </body>
 </html>

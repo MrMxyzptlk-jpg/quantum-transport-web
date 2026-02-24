@@ -1,7 +1,7 @@
-import { initProblem3Graph } from './problem3.js';
-import { buildHamiltonianFromGraph } from '../core/hamiltonian.js';
-import { runProblem } from '../core/main.js';
-import { initUI } from '../core/ui.js';
+import { initProblem3Graph } from './graph.js';
+import { buildHamiltonianFromGraph } from '../../core/hamiltonian.js';
+import { runProblem } from '../../core/main.js';
+import { initUI } from '../../core/ui.js';
 
 // ---------- 1. Create graph ----------
 const cy = cytoscape({
