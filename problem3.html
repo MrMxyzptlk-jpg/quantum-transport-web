@@ -48,20 +48,14 @@
         </p>
 
         <ul>
-        <li>V<sub>AB</sub> = V<sub>U</sub> = 1</li>
-        <li>ε<sub>A</sub> = ε<sub>B</sub> = ε<sub>C</sub> = 0</li>
+            <li>\( V_{AB} = V_U = 1 \)</li>
+            <li>\( \varepsilon_A = \varepsilon_B = \varepsilon_C = 0\)</li>
         </ul>
 
         <ol>
         <li>
             Analyze analytically the effect of decoherence on resonances
-            and antiresonances.
-        </li>
-        <li>
-            Produce numerical plots for different parameter regimes.
-        </li>
-        <li>
-            Discuss the progressive suppression of quantum interference.
+            and antiresonances from analitical derivations and numerical plots.
         </li>
         </ol>
     </div>
@@ -87,57 +81,58 @@
         H_0 =
         \begin{pmatrix}
         \varepsilon_A & V_{AB} & V_{AC} \\
-        V_{AB} & \varepsilon_B & V_{BC} e^{i\phi} \\
-        V_{AC} & V_{BC} e^{-i\phi} & \varepsilon_C
+        V_{AB} & \varepsilon_B & V_{BC} e^{i\alpha} \\
+        V_{AC} & V_{BC} e^{-i\alpha} & \varepsilon_C
         \end{pmatrix}.
     \]
 
-    <p>The phase \( \phi \) represents the Aharonov-Bohm magnetic flux.</p>
+    <p>The phase \( \alpha \) represents the Aharonov-Bohm magnetic flux.</p>
+
+    <p>The lead self-energies are:</p>
+
+    \[
+        \Sigma_L = - i \Gamma_L \ket{A}\bra{A},
+        \qquad
+        \Sigma_R = - i \Gamma_R \ket{B}\bra{B}.
+    \]
 
     <p>Each orbital interacts independently with an environment. This is modeled by imaginary self-energies:</p>
 
     \[
-        \Sigma_A^{(\phi)} = - i \Gamma_{\phi A},
+        \Sigma_A^{(\phi)} = - i \Gamma_{\phi A}\ket{A}\bra{A},
         \qquad
-        \Sigma_B^{(\phi)} = - i \Gamma_{\phi B}.
+        \Sigma_B^{(\phi)} = - i \Gamma_{\phi B}\ket{B}\bra{B}.
     \]
 
     <p>The effective non-Hermitian Hamiltonian becomes:</p>
 
     \[
-        H_{\text{eff}} =
-        H_0
-        -
-        i
-        \begin{pmatrix}
-        \Gamma_{\phi A} & 0 & 0 \\
-        0 & \Gamma_{\phi B} & 0 \\
-        0 & 0 & 0
-        \end{pmatrix}.
+        H_{\text{eff}} = H_0 + \sum_\alpha \Sigma_\alpha
     \]
 
-    <p>These terms introduce phase randomization at sites \( A \) and \( B \).</p>
+    <details>
+        <summary>And the Green's function is:</summary>
+        <p>(in its matrix form)</p>
+
+        \[
+            G^R(E) = \left(\begin{matrix} a & -V_{AB} & -V_{AC} \\ -V_{AB} & b  & -V_{BC}e^{i\alpha}\\ -V_{AC}  & -V_{BC}e^{-i\alpha} & c \\ \end{matrix} \right)^{-1}
+        \]
+
+        <p>where we have taken</p>
+
+        \[  \begin{align*}
+                a &= E - \varepsilon_A - \Sigma_A - \Sigma_A^{(\phi)} \\ 
+                b &= E - \varepsilon_B - \Sigma_B - \Sigma_B^{(\phi)} \\
+                c &= E - \varepsilon_C 
+            \end{align*}
+        \]
+
+        <p>Or more compactly:</p>
+
+    </details>
 
     \[
-        G^r(E)
-        =
-        \left[
-        E I
-        -
-        H_{\text{eff}}
-        -
-        \Sigma_L
-        -
-        \Sigma_R
-        \right]^{-1}.
-    \]
-
-    <p>The lead self-energies are:</p>
-
-    \[
-        \Sigma_L = - i \Gamma_L |A\rangle\langle A|,
-        \qquad
-        \Sigma_R = - i \Gamma_R |C\rangle\langle C|.
+        G^R(E) = \left[ E I - H_{\text{eff}} \right]^{-1}.
     \]
 
     <p>Using the Fisher-Lee relation in matrix form:</p>
@@ -147,22 +142,48 @@
         =
         \mathrm{Tr}
         \left[
-        \Gamma_L
-        G^r
-        \Gamma_R
-        G^a
+        \mathbf{\Gamma}_L
+        G^R
+        \mathbf{\Gamma}_R
+        G^A
         \right],
     \]
 
     <p>where</p>
 
     \[
-        \Gamma_L = 2\Gamma_L |A\rangle\langle A|,
+        \mathbf{\Gamma}_L = 2\Gamma_L \ket{A}\bra{A},
         \qquad
-        \Gamma_R = 2\Gamma_R |C\rangle\langle C|.
+        \mathbf{\Gamma}_R = 2\Gamma_R \ket{B}\bra{B}.
     \]
 
-    <h3>2. Effect of Decoherence on Interference</h3>
+    <p>Subsituting these in the Fisher-Lee relation we get:</p>
+
+    \[
+        T_{LR}(E) = 4\Gamma_L\Gamma_R \left| G_{AB}^R(E) \right|^2
+    \]
+
+    <details>
+        <summary>Using the cofactor formula:</summary>
+
+        \[
+            G_{AB}^R(E) = \frac{\left| \begin{matrix} -V_{AB} & -V_{AC} \\ -V_{BC}e^{-i\alpha} & c \end{matrix} \right| }{Det\left[ E I - H_{\text{eff}} \right]}
+        \]
+
+        <p>And calculating the determinant in the numerator it results in:</p>
+    </details>
+
+    \[
+        G_{AB}^R(E) = \frac{V_{AB}(E-\varepsilon_C) + V_{AC}V_{BC}e^{-i\alpha}}{Det\left[ E I - H_{\text{eff}} \right]}
+    \]
+
+    <p>From which it follows:</p>
+
+    \[
+    T_{LR}(E,\alpha) = 4\Gamma_L\Gamma_R \frac{\left|V_{AB}(E-\varepsilon_C) + V_{AC}V_{BC}e^{-i\alpha} \right|^2}{ \left| Det\left[ E I - H_{\text{eff}}\right] \right|^2}
+    \]
+
+    <h3>Effect of Decoherence on Interference</h3>
 
     <p>In the fully coherent case:</p>
 

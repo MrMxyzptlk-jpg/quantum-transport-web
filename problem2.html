@@ -30,7 +30,7 @@
 <h2>Problem 2 - Resonant Tunneling with Decoherence (DP Model)</h2>
 <p class="hint">Interactive tight-binding model for resonant tunneling with decoherence (DP Model)</p>
 
-<details class="assignment-box" open>
+<details class="assignment-box">
     <summary>Problem Assignment</summary>
 
     <div class="assignment-content">
@@ -69,7 +69,7 @@
     </div>
 </details>
 
-<details class="assignment-box" open>
+<details class="assignment-box">
     <summary>Theoretical Derivation</summary>
 
     <div class="assignment-content">
@@ -87,91 +87,83 @@
 
     <p>The effective non-Hermitian Hamiltonian becomes:</p>
 
-    \[ \begin{align}
+    \[ \begin{align*}
             H_{\text{eff}} &=
             \varepsilon_0
             + \left( \Sigma_L + \Sigma_R + \Sigma_\phi \right) \\
             &= \varepsilon_0
             - i \left( \Gamma_L + \Gamma_R + \Gamma_\phi \right).
-        \end{align}
+        \end{align*}
     \]
 
     <p>The retarded Green function for this single site-system is:</p>
 
-    \[  \begin{equation}
+    \[
         G^R(E) =
         \frac{1}
         {E - \varepsilon_0 + i \Gamma_{\text{tot}}},
-        \end{equation}
     \]
 
     <p>where</p>
 
-    \[  \begin{equation}
-            \Gamma_{\text{tot}} = \Gamma_L + \Gamma_R + \Gamma_\phi.
-        \end{equation}
+    \[
+        \Gamma_{\text{tot}} = \Gamma_L + \Gamma_R + \Gamma_\phi.
     \]
 
     <p>Its modulus squared is:</p>
 
-    \[  \begin{equation}
+    \[
         |G^R(E)|^2
         =
         \frac{1}
         {(E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2}.
-        \end{equation}
     \]
 
     <p>For three terminals, the current at terminal \( \alpha \) is:</p>
 
-    \[  \begin{equation}
+    \[
         I_\alpha =
         \frac{2e}{h}
         \sum_\beta
         T_{\alpha\beta}
         (\mu_\alpha - \mu_\beta).
-        \end{equation}
     \]
 
     <p>Using the Fisher-Lee relation:</p>
 
-    \[  \begin{equation}
+    \[
         T_{\alpha\beta}(E)
         =
         4 \Gamma_\alpha \Gamma_\beta
         |G^R(E)|^2.
-        \end{equation}
     \]
 
     <p>Therefore,</p>
 
-    \[  \begin{equation}
-            T_{\alpha\beta}(E) = \frac{ 4 \Gamma_\alpha \Gamma_\beta} { (E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2 }.
-        \end{equation}
+    \[
+        T_{\alpha\beta}(E) = \frac{ 4 \Gamma_\alpha \Gamma_\beta} { (E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2 }.
     \]
 
     <p>The fictitious probe does not inject net current:</p>
 
-    \[  \begin{equation}
+    \[
         I_\phi = 0.
-        \end{equation}
     \]
 
     <p>From the Landauer-Büttiker equation:</p>
 
-    \[  \begin{equation}
+    \[
         0 =
         T_{\phi L}
         (\mu_\phi - \mu_L)
         +
         T_{\phi R}
         (\mu_\phi - \mu_R).
-        \end{equation}
     \]
 
     <p>Solving for \( \mu_\phi \):</p>
 
-    \[  \begin{equation}
+    \[
         \mu_\phi
         =
         \frac{
@@ -181,13 +173,12 @@
         }{
         T_{\phi L} + T_{\phi R}
         }.
-        \end{equation}
     \]
 
     <details>
         <summary>Substituting back into the current expression for \(I_L\), one obtains the effective two-terminal transmission:</summary>
 
-        \[ \begin{align}
+        \[ \begin{align*}
                 I_L &= \frac{2e}{h}  \sum_\beta  T_{L\beta}(\mu_L - \mu_\beta) \\
                 &=   \frac{2e}{h} \left[ T_{LR}(\mu_L - \mu_R)+ T_{L\phi}(\mu_L - \mu_\phi) \right] \\
                 &=   \frac{2e}{h} \left[ T_{LR}(\mu_L - \mu_R)+ T_{L\phi}\left(\mu_L - \frac{T_{\phi L} \mu_L + T_{\phi R} \mu_R }{T_{\phi L} + T_{\phi R}} \right) \right] \\
@@ -196,33 +187,31 @@
                 &=   \frac{2e}{h} \left[ T_{LR} - \left( \frac{T_{L\phi}T_{R\phi}}{T_{\phi L} + T_{\phi R}} \right) \right](\mu_L + \mu_R) \\
                 &=   \frac{2e}{h} \left[ T_{LR} + \frac{T_{L\phi}T_{\phi R}}{T_{\phi L} + T_{\phi R}}  \right](\mu_L + \mu_R) \\
                 &=   \frac{2e}{h} T_{LR}^{\text{eff}} (\mu_L + \mu_R) \\
-            \end{align}
+            \end{align*}
         \]
 
         <p>Where we have identified the effective transmision:</p>
     </details>
 
-    \[  \begin{equation}
-            T_{LR}^{\text{eff}} = T_{LR} + \frac{T_{L\phi} T_{\phi R}}{T_{L\phi} + T_{\phi R}}.
-        \end{equation}
+    \[
+        T_{LR}^{\text{eff}} = T_{LR} + \frac{T_{L\phi} T_{\phi R}}{T_{L\phi} + T_{\phi R}}.
     \]
 
     <details>
         <summary>Finally, replacing \( T_{\alpha \beta} \) in the last expression:</summary>
 
-        \[  \begin{align}
+        \[  \begin{align*}
             T_{LR}^{\text{eff}} &= T_{LR} + \frac{T_{L\phi} T_{\phi R}}{T_{L\phi} + T_{\phi R}} \\
             &= \frac{4}{ (E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2 } \left( \Gamma_L\Gamma_R + \frac{\Gamma_L\Gamma_\phi \Gamma_\phi \Gamma_R }{\Gamma_L\Gamma_\phi + \Gamma_\phi \Gamma_R } \right). \\
-            \end{align}
+            \end{align*}
         \]
 
         <p>Simplifying, we get:</p>
 
     </details>
 
-    \[  \begin{equation}
-            T_{LR}^{\text{eff}}(E) = \frac{4 \Gamma_L \Gamma_R}{(E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2} \left(1 + \frac{\Gamma_\phi}{\Gamma_L + \Gamma_R} \right).
-        \end{equation}
+    \[
+        T_{LR}^{\text{eff}}(E) = \frac{4 \Gamma_L \Gamma_R}{(E - \varepsilon_0)^2 + \Gamma_{\text{tot}}^2} \left(1 + \frac{\Gamma_\phi}{\Gamma_L + \Gamma_R} \right).
     \]
 
     <hr>
