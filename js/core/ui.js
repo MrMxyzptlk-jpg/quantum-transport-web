@@ -40,8 +40,13 @@ export function initUI(cy, updatePlot) {
         });
 
         // disable sliders when inactive
-        epsCInput.disabled = !on;
-        phiInput.disabled = !on;
+        if (epsCInput) {
+            epsCInput.disabled = !on;
+        }
+
+        if (phiInput) {
+            phiInput.disabled = !on;
+        }
     }
 
     toggleC.addEventListener('change', e => {
