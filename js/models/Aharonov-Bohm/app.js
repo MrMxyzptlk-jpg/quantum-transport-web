@@ -1,43 +1,10 @@
 import { initProblem1Graph } from './graph.js';
 import { runProblem } from '../../core/main.js';
 import { initUI } from '../../core/ui.js';
+import { createGraph } from '../../core/graph.js';
 
 // ---------- 1. Graph ----------
-const cy = cytoscape({
-    container: document.getElementById('graph'),
-    elements: initProblem1Graph(0),
-
-    style: [
-        {
-            selector: 'node',
-            style: {
-                'label': 'data(label)',
-                'text-valign': 'center',
-                'text-halign': 'center',
-                'background-color': '#0074D9',
-                'color': '#fff'
-            }
-        },
-        {
-            selector: 'edge',
-            style: {
-                'width': 3,
-                'line-color': '#aaa'
-            }
-        },
-        {
-            selector: '.lead-site',
-            style: {
-                'border-width': 3,
-                'border-color': '#000',
-                'border-style': 'dashed'
-            }
-        }
-    ],
-
-    layout: { name: 'preset' }
-});
-
+const cy = createGraph(initProblem1Graph(0));
 
 // ---------- 2. Reservoir Builder ----------
 function reservoirBuilder() {
@@ -54,8 +21,19 @@ function reservoirBuilder() {
 // ---------- 3. Run Problem ----------
 const updatePlot = runProblem(cy, reservoirBuilder);
 
+const gammaInput = document.getElementById('gamma');
+const gammaVal   = document.getElementById('gammaVal');
+
+gammaInput.addEventListener('input', () => {
+    gammaVal.textContent = gammaInput.value;
+    updatePlot();
+});
 
 // ---------- 4. Magnetic Flux ----------
+const nodeC = cy.getElementById('C');
+const toggleC = document.getElementById('toggleC');
+
+
 const alphaInput = document.getElementById('alpha');
 const alphaVal   = document.getElementById('alphaVal');
 
@@ -80,7 +58,26 @@ alphaInput.addEventListener('input', () => {
     updatePlot();
 });
 
+function applyCState(on) {
 
+    nodeC.data('active', on);
+    nodeC.style('opacity', on ? 1 : 0.2);
+
+    cy.edges().forEach(edge => {
+        if (edge.source().id() === 'C' || edge.target().id() === 'C') {
+            edge.style('opacity', on ? 1 : 0.2);
+        }
+    });
+
+    alphaInput.disabled = !on;
+}
+
+toggleC.addEventListener('change', e => {
+    applyCState(e.target.checked);
+    updatePlot();
+});
+
+applyCState(toggleC.checked);
 // ---------- 5. Init UI ----------
 initUI(cy, updatePlot);
 

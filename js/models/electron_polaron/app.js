@@ -1,20 +1,34 @@
+// Sliders
 const eps0Slider = document.getElementById("eps0");
 const gammaSlider = document.getElementById("gamma");
 const lambdaSlider = document.getElementById("lambda");
 const omegaSlider = document.getElementById("omega");
 const nmaxSlider = document.getElementById("nmax");
 
-eps0Slider.oninput = updatePlot;
-gammaSlider.oninput = updatePlot;
-lambdaSlider.oninput = updatePlot;
-omegaSlider.oninput = updatePlot;
-nmaxSlider.oninput = updatePlot;
+// Value spans
+const eps0Val = document.getElementById("eps0Val");
+const gammaVal = document.getElementById("gammaVal");
+const lambdaVal = document.getElementById("lambdaVal");
+const omegaVal = document.getElementById("omegaVal");
+const nmaxVal = document.getElementById("nmaxVal");
 
-updatePlot();
+eps0Slider.addEventListener("input", refresh);
+gammaSlider.addEventListener("input", refresh);
+lambdaSlider.addEventListener("input", refresh);
+omegaSlider.addEventListener("input", refresh);
+nmaxSlider.addEventListener("input", refresh);
+
+function refresh(){
+    updateValues();
+    updatePlot();
+}
+
+refresh();
 
 function factorial(n){
-    if(n===0) return 1;
-    return n*factorial(n-1);
+    let f = 1;
+    for(let i=2; i<=n; i++) f *= i;
+    return f;
 }
 
 function franckCondon(n,S){
@@ -45,6 +59,14 @@ function transmission(E, eps0, gamma, lambda, omega, nmax){
     return gamma*gamma*(real*real + imag*imag);
 }
 
+function updateValues(){
+    eps0Val.textContent = eps0Slider.value;
+    gammaVal.textContent = gammaSlider.value;
+    lambdaVal.textContent = lambdaSlider.value;
+    omegaVal.textContent = omegaSlider.value;
+    nmaxVal.textContent = nmaxSlider.value;
+}
+
 function updatePlot(){
 
     const eps0 = parseFloat(eps0Slider.value);
@@ -61,7 +83,7 @@ function updatePlot(){
         T.push(transmission(e,eps0,gamma,lambda,omega,nmax));
     }
 
-    Plotly.newPlot("plot",[{
+    Plotly.react("plot",[{
         x:E,
         y:T,
         mode:"lines"
