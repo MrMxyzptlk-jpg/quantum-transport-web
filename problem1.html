@@ -36,9 +36,7 @@
 
     <div class="assignment-content">
         <p>
-        The Double Quantum Dot (DQD) consists of two consecutive Double-Barrier
-        Resonant Tunneling Diodes (DBRTD). The system is schematically represented
-        by two localized orbitals A and B (for V<sub>U</sub> = 0).
+        The Double Quantum Dot (DQD) consists of two consecutive Double-Barrier    Resonant Tunneling Diodes (DBRTD). The system is schematically represented by two localized orbitals \( A \) and \( B \) (for \( V_U = 0 \)).
         </p>
 
         <ol>
@@ -51,8 +49,8 @@
                 the physical behavior.
             </li>
             <li>
-                Add a third orbital C \((V_U \neq 0)\) providing an additional tunneling channel. Introduce a magnetic field producing a flux represented by a phase
-                0 ≤ φ ≤ 2π (singular gauge).
+                Add a third orbital \( C \) \((V_U \neq 0)\) providing an additional tunneling channel. Introduce a magnetic field producing a flux represented by a phase
+                \( 0 \leq \phi \leq 2\pi \) (singular gauge).
             </li>
             <li>
                 Discuss interference effects (Aharonov-Bohm effect).
@@ -128,7 +126,7 @@
     \]
 
     <details>
-        <summary class="intermediate-step">Substituting this result in the Landauer formula for the conductance \( G_{LR} \) (a temperatura 0K) we get:</summary>
+        <summary class="intermediate-step">Substituting this result in the Landauer formula for the conductance \( G_{LR} \) (at \( T = 0K \)) we get:</summary>
 
         \[  \begin{align}
                 G_{L,R}  &= \frac{2e^2}{h} T_{L,R}(E_F)  \\
@@ -206,24 +204,25 @@
                 <label for="phi" class="right-label">2</label>
             </label>
 
-            <label>φ = <span id="phiVal">0</span>
-                <label for="phi" class="left-label">0</label>
-                <input type="range" id="phi" min="0" max="6.28" step="0.01" value="0">
-                <label for="phi" class="right-label">6.28 (max)</label>
-            </label>
+             <!-- Magnetic Flux Phase -->
+             <label>
+                 α = <span id="alphaVal">0</span>
+                 <span class="left-label">0</span>
+                 <input type="range" id="alpha" min="0" max="6.283" step="0.01" value="0">
+                 <span class="right-label">2π</span>
+             </label>
+
         </div>
     </div>
 
     <div id="plot"></div>
 </div>
 
-<script src="js/problem1/graph.js"></script>
-<script src="js/problem1/hamiltonian.js"></script>
-<script src="js/problem1/transport.js"></script>
-<script src="js/problem1/ui.js"></script>
-<script type="module" src="js/problem1/main.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+<script src="https://unpkg.com/cytoscape/dist/cytoscape.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+<script type="module" src="js/models/Aharonov-Bohm/app.js"></script>
 
 </body>
 </html>
