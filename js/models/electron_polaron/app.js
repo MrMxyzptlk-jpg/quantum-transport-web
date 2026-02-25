@@ -1,20 +1,23 @@
 // Sliders
 const eps0Slider = document.getElementById("eps0");
-const gammaSlider = document.getElementById("gamma");
 const lambdaSlider = document.getElementById("lambda");
+const gammaLSlider = document.getElementById("gammaL");
+const gammaRSlider = document.getElementById("gammaR");
 const omegaSlider = document.getElementById("omega");
 const nmaxSlider = document.getElementById("nmax");
 
 // Value spans
 const eps0Val = document.getElementById("eps0Val");
-const gammaVal = document.getElementById("gammaVal");
 const lambdaVal = document.getElementById("lambdaVal");
+const gammaLVal = document.getElementById("gammaLVal");
+const gammaRVal = document.getElementById("gammaRVal");
 const omegaVal = document.getElementById("omegaVal");
 const nmaxVal = document.getElementById("nmaxVal");
 
 eps0Slider.addEventListener("input", refresh);
-gammaSlider.addEventListener("input", refresh);
 lambdaSlider.addEventListener("input", refresh);
+gammaLSlider.addEventListener("input", refresh);
+gammaRSlider.addEventListener("input", refresh);
 omegaSlider.addEventListener("input", refresh);
 nmaxSlider.addEventListener("input", refresh);
 
@@ -35,8 +38,9 @@ function franckCondon(n,S){
     return Math.exp(-S)*Math.pow(S,n)/factorial(n);
 }
 
-function transmission(E, eps0, gamma, lambda, omega, nmax){
+function transmission(E, eps0, gammaL, gammaR, lambda, omega, nmax){
 
+    const Gamma = gammaL + gammaR
     const Lambda = lambda*lambda/omega;
     const S = (lambda/omega)**2;
 
@@ -48,7 +52,7 @@ function transmission(E, eps0, gamma, lambda, omega, nmax){
         const Fn = franckCondon(n,S);
 
         const denomReal = E - (eps0 - Lambda) - n*omega;
-        const denomImag = gamma;
+        const denomImag = Gamma;
 
         const denom = denomReal**2 + denomImag**2;
 
@@ -56,13 +60,16 @@ function transmission(E, eps0, gamma, lambda, omega, nmax){
         imag -= Fn * denomImag/denom;
     }
 
-    return gamma*gamma*(real*real + imag*imag);
+    const Gabs2 = real*real + imag*imag;
+    return 4*gammaL*gammaR * Gabs2;
+
 }
 
 function updateValues(){
     eps0Val.textContent = eps0Slider.value;
-    gammaVal.textContent = gammaSlider.value;
     lambdaVal.textContent = lambdaSlider.value;
+    gammaLVal.textContent = gammaLSlider.value;
+    gammaRVal.textContent = gammaRSlider.value;
     omegaVal.textContent = omegaSlider.value;
     nmaxVal.textContent = nmaxSlider.value;
 }
@@ -70,8 +77,9 @@ function updateValues(){
 function updatePlot(){
 
     const eps0 = parseFloat(eps0Slider.value);
-    const gamma = parseFloat(gammaSlider.value);
     const lambda = parseFloat(lambdaSlider.value);
+    const gammaL = parseFloat(gammaLSlider.value);
+    const gammaR = parseFloat(gammaRSlider.value);
     const omega = parseFloat(omegaSlider.value);
     const nmax = parseInt(nmaxSlider.value);
 
@@ -80,7 +88,7 @@ function updatePlot(){
 
     for(let e=-4; e<=4; e+=0.02){
         E.push(e);
-        T.push(transmission(e,eps0,gamma,lambda,omega,nmax));
+        T.push(transmission(e,eps0,gammaL,gammaR,lambda,omega,nmax));
     }
 
     Plotly.react("plot",[{
