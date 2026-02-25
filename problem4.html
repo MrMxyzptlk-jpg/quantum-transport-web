@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Problem 4 — Polaronic State and Electron Transfer</title>
     <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 </head>
 
 <header class="site-header">
@@ -33,62 +40,103 @@
         <p>
         Consider the two-state donor-acceptor model discussed in class,
         where the acceptor is coupled to a phonon mode of frequency ω₀
-        with energy ℏω₀(n + 1/2).
+        with energy \( \hbar \omega_0 (n + \frac{1}{2}) \).
         </p>
 
-        <p>
-        Use the displaced harmonic oscillator solution to discuss:
-        </p>
+        <p>Use the displaced harmonic oscillator solution to discuss:</p>
         <ul>
-        <li>The polaronic solution</li>
-        <li>Energy shifts</li>
-        <li>Physical interpretation (Franck-Condon effect)</li>
+            <li>The polaronic solution</li>
+            <li>Energy shifts</li>
+            <li>Physical interpretation (Franck-Condon effect)</li>
         </ul>
 
         <p><strong>Reference:</strong> Marder, Sec. 22.4.5</p>
 
         <h4>b) Marcus-Hush Electron Transfer</h4>
-        <p>
-        Discuss the kinetic rate constant:
-        </p>
+        <p>Discuss the kinetic rate constant:</p>
 
-        <p style="text-align:center;">
-        k = 1/τ
-        </p>
+        \[ k = \frac{1}{\tau} \]
 
-        <p>
-        using Fermi's Golden Rule for donor-to-acceptor transfer.
-        Compare with the Landau-Zener tunneling approach used by Marcus.
-        </p>
+        <p>using Fermi's Golden Rule for donor-to-acceptor transfer. Compare with the Landau-Zener tunneling approach used by Marcus.</p>
 
         <p><strong>Reference:</strong> Cattena, Bustos-Marún, Pastawski (2010)</p>
 
         <h4>c) DBRTD with Local Phonon Coupling</h4>
         <ol>
-        <li>
-            Extend the model to describe a DBRTD where the resonant state
-            is coupled to a local phonon.
-        </li>
-        <li>
-            Write the transmission equations for the case where the initial
-            phonon occupation number n ≠ 1.
-        </li>
-        <li>
-            Analyze the cases E ≶ ℏω₀ and truncate the number of outgoing channels.
-        </li>
-        <li>
-            Compare similarities and differences between the DBRTD with
-            a local phonon and the DP decoherence model.
-            Where do irreversible processes occur in each model?
-        </li>
+            <li> Extend the model to describe a DBRTD where the resonant state is coupled to a local phonon.</li>
+            <li>Write the transmission equations for the case where the initial phonon occupation number \(n \neq 1\).</li>
+            <li>Analyze the cases \( E \lessgtr \hbar\omega_0 \) and truncate the number of outgoing channels.</li>
+            <li>Compare similarities and differences between the DBRTD with a local phonon and the DP decoherence model. Where do irreversible processes occur in each model?</li>
         </ol>
 
     </div>
 </details>
 
 
+<details class="assignment-box" open>
+    <summary>Theoretical Background</summary>
 
+    <div class="assignment-content">
 
+    <h3>Polaron shift</h3>
+
+    \[
+        \Lambda = \frac{\lambda^2}{\hbar\omega_0}
+    \]
+
+    \[
+        S = \left(\frac{\lambda}{\hbar\omega_0}\right)^2
+    \]
+
+    Franck–Condon factors:
+
+    \[
+        F_n = e^{-S}\frac{S^n}{n!}
+    \]
+
+    Transmission with phonons:
+
+    \[
+        T(E) = \Gamma_L\Gamma_R \left|\sum_{n=0}^{N} \frac{F_n}{E-\varepsilon_0+\Lambda-n\hbar\omega_0+i\Gamma} \right|^2
+    \]
+
+    </div>
+</details>
+
+<div class="container">
+
+    <div class="left-panel">
+
+        <div class="controls">
+
+            <label>ε₀ =
+                <input type="range" id="eps0" min="-3" max="3" step="0.1" value="0">
+            </label>
+
+            <label>Γ =
+                <input type="range" id="gamma" min="0.05" max="1" step="0.05" value="0.2">
+            </label>
+
+            <label>λ =
+                <input type="range" id="lambda" min="0" max="2" step="0.05" value="0.5">
+            </label>
+
+            <label>ω₀ =
+                <input type="range" id="omega" min="0.2" max="2" step="0.1" value="1">
+            </label>
+
+            <label>Nmax =
+                <input type="range" id="nmax" min="1" max="8" step="1" value="4">
+            </label>
+
+        </div>
+    </div>
+
+    <div id="plot"></div>
+
+</div>
+
+<script type="module" src="js/models/electron_polaron/app.js"></script>
 
 </body>
 </html>
