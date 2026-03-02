@@ -59,8 +59,6 @@
 
         <p>using Fermi's Golden Rule for donor-to-acceptor transfer. Compare with the Landau-Zener tunneling approach used by Marcus.</p>
 
-        <p><strong>Reference:</strong> Cattena, Bustos-Marún, Pastawski (2010)</p>
-
         <h4>c) DBRTD with Local Phonon Coupling</h4>
         <ol>
             <li> Extend the model to describe a DBRTD where the resonant state is coupled to a local phonon.</li>
@@ -69,6 +67,11 @@
             <li>Compare similarities and differences between the DBRTD with a local phonon and the DP decoherence model. Where do irreversible processes occur in each model?</li>
         </ol>
 
+        <p><strong>References:</strong></p>
+        <ul>
+            <li>Cattena, Bustos-Marún, Pastawski (2010)</li>
+            <li>Pastawski, Foa-Torres, Medina (2002)</li>
+        </ul>
     </div>
 </details>
 
@@ -700,6 +703,86 @@
             \]
 
             So the total transmitance can be obtained numerically after sufficient convergence.
+
+            <details>
+                <summary><strong>Validation: Comparisons with Published Literature [Pastawski, Foa-Torres, Medina (2002)]</strong></summary>
+  
+                <p>The following plots demonstrate the exact agreement between the Python simulation and results previously published in the literature. Click to expand each case and view the simulation parameters.</p>
+
+                <details>
+                    <summary><strong>Example 1</strong></summary>
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        <img src="./assets/data1.png" alt="Comparison with literature plot 1" style="max-width: 100%; height: auto;">
+                    </div>
+
+                    <p><strong>Simulation Parameters:</strong></p>
+                    <ul>
+                        <li><strong>Dot Energy Level (&epsilon;<sub>0</sub>):</strong> -1.5 </li>
+                        <li><strong>Phonon Frequency (ħ&omega;<sub>0</sub>):</strong> 0.2 </li>
+                        <li><strong>Electron-Phonon Coupling (V<sub>g</sub>):</strong> 0.1 </li>
+                        <li><strong>Lead Broadening (&Gamma;<sub>L</sub> = &Gamma;<sub>R</sub>):</strong> 0.1 </li>
+                        <li><strong>Initial Number of Phonons (n):</strong> 0 </li>
+                        <li><strong>Phonons Cutoff (N<sub>max</sub>):</strong> 15 </li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary><strong>Example 2</strong></summary>
+
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        <img src="./assets/data2.png" alt="Comparison with literature plot 2" style="max-width: 100%; height: auto;">
+                    </div>
+
+                    <p><strong>Simulation Parameters:</strong></p>
+                    <ul>
+                        <li><strong>Dot Energy Level (&epsilon;<sub>0</sub>):</strong> 0 </li>
+                        <li><strong>Phonon Frequency (ħ&omega;<sub>0</sub>):</strong> 0.05 </li>
+                        <li><strong>Electron-Phonon Coupling (V<sub>g</sub>):</strong> 0.1 </li>
+                        <li><strong>Lead Broadening (&Gamma;<sub>L</sub> = &Gamma;<sub>R</sub>):</strong> 0.05 </li>
+                        <li><strong>Initial Number of Phonons (n):</strong> 0 </li>
+                        <li><strong>Phonons Cutoff (N<sub>max</sub>):</strong> 27 </li>
+                    </ul>
+                </details>
+
+                <details>
+                    <summary><strong>Example 3</strong></summary>
+
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        <img src="./assets/data3.png" alt="Comparison with literature plot 3" style="max-width: 100%; height: auto;">
+                    </div>
+
+                    <p><strong>Simulation Parameters:</strong></p>
+                    <ul>
+                        <li><strong>Dot Energy Level (&epsilon;<sub>0</sub>):</strong> 0 </li>
+                        <li><strong>Phonon Frequency (ħ&omega;<sub>0</sub>):</strong> 0.0005 </li>
+                        <li><strong>Electron-Phonon Coupling (V<sub>g</sub>):</strong> 0.0015 </li>
+                        <li><strong>Lead Broadening (&Gamma;<sub>L</sub> = &Gamma;<sub>R</sub>):</strong> 0.05 </li>
+                        <li><strong>Initial Number of Phonons (n):</strong> 300 </li>
+                        <li><strong>Phonons Cutoff (N<sub>max</sub>):</strong> 25 </li>
+                    </ul>
+
+                    <p><em>Notes: It is worth noting that the spectral sum in unstable due to underflow/overflow issues caused by the factors in the Green's functions. The decimation method, in contrast, is numerically robust and converges to the classical oscillator we expect.</em></p>
+                </details>
+
+                <details>
+                    <summary><strong>Example 4</strong></summary>
+
+                    <div style="margin-top: 10px; margin-bottom: 10px;">
+                        <img src="./assets/data4.png" alt="Comparison with literature plot 4" style="max-width: 100%; height: auto;">
+                    </div>
+
+                    <p><strong>Simulation Parameters:</strong></p>
+                    <ul>
+                        <li><strong>Dot Energy Level (&epsilon;<sub>0</sub>):</strong> 0 </li>
+                        <li><strong>Phonon Frequency (ħ&omega;<sub>0</sub>):</strong> 0.02 </li>
+                        <li><strong>Electron-Phonon Coupling (V<sub>g</sub>):</strong> 0.004 </li>
+                        <li><strong>Lead Broadening (&Gamma;<sub>L</sub> = &Gamma;<sub>R</sub>):</strong> 0.05 </li>
+                        <li><strong>Initial Number of Phonons (n):</strong> 10 </li>
+                        <li><strong>Phonons Cutoff (N<sub>max</sub>):</strong> 35 </li>
+                    </ul>
+                </details>
+
+            </details>
         </details>
 
         <hr>
@@ -738,7 +821,7 @@
                 <span class="right-label">0.5</span>
             </label>
 
-            <label>ω₀ = <span id="omegaVal">0.2</span>
+            <label>ħω₀ = <span id="omegaVal">0.2</span>
                 <span class="left-label">0.05</span>
                 <input type="range" id="omega" min="0.05" max="2" step="0.05" value="0.2">
                 <span class="right-label">2</span>
@@ -750,7 +833,7 @@
                 <span class="right-label">10</span>
             </label>
 
-            <label>Nmax = <span id="nmaxVal">15</span>
+            <label>N<sub>max</sub> = <span id="nmaxVal">15</span>
                 <span class="left-label">1</span>
                 <input type="range" id="nmax" min="1" max="15" step="1" value="15">
                 <span class="right-label">15</span>

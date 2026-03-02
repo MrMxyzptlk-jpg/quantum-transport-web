@@ -41,23 +41,19 @@
 
         <ol>
             <li>
-                Derive analytical expressions for the Landauer conductance using
-                the Fisher-Lee relation.
+                Derive analytical expressions for the Landauer conductance using the Fisher-Lee relation.
             </li>
             <li>
-                Plot the transmission function for several parameter choices and discuss
-                the physical behavior.
-            </li>
-            <li>
-                Add a third orbital \( C \) \((V_U \neq 0)\) providing an additional tunneling channel. Introduce a magnetic field producing a flux represented by a phase
-                \( 0 \leq \phi \leq 2\pi \) (singular gauge).
+                Add a third orbital \( C \) \((V_U \neq 0)\) providing an additional tunneling channel. Introduce a magnetic field producing a flux represented by a phase \( 0 \leq \phi \leq 2\pi \) (singular gauge).
             </li>
             <li>
                 Discuss interference effects (Aharonov-Bohm effect).
             </li>
             <li>
-                Identify antiresonances and compare them with the antiresonance
-                phenomenon in two coupled pendulums.
+                Identify antiresonances and compare them with the antiresonance phenomenon in two coupled pendulums.
+            </li>
+            <li>
+                Plot the transmission function for several parameter choices and discuss the physical behavior.
             </li>
         </ol>
 
@@ -157,7 +153,169 @@
 -->
 
 
+<h3>2. Addition of a Third Orbital and Magnetic Flux</h3>
 
+<p>
+We now introduce a third localized orbital \( C \), providing an additional
+tunneling pathway between \( A \) and \( B \).
+The Hamiltonian becomes:
+</p>
+
+\[
+H =
+\begin{pmatrix}
+\varepsilon_A & V_{AB} & V_{AC} \\
+V_{AB}^* & \varepsilon_B & V_{CB} \\
+V_{AC}^* & V_{CB}^* & \varepsilon_C
+\end{pmatrix}
+\]
+
+<p>
+A magnetic flux penetrating the loop formed by the three orbitals produces
+a phase factor in one of the hopping amplitudes (singular gauge choice).
+We choose the phase to reside in the \( C \to B \) link:
+</p>
+
+\[
+V_{CB} \rightarrow V_{CB} e^{-i\alpha}
+\]
+
+<p>
+where
+</p>
+
+\[
+\alpha = \frac{2\pi \Phi}{\Phi_0}
+\]
+
+<p>
+and \( \Phi_0 = h/e \) is the magnetic flux quantum.
+</p>
+
+
+
+<h3>3. Interference and the Aharonov–Bohm Effect</h3>
+
+<p>
+Transport between \( A \) and \( B \) now occurs through two coherent paths:
+</p>
+
+<ul>
+    <li>Direct path: \( A \rightarrow B \)</li>
+    <li>Indirect path: \( A \rightarrow C \rightarrow B \)</li>
+</ul>
+
+<p>
+The total transmission amplitude may therefore be written schematically as:
+</p>
+
+\[
+\mathcal{A}_{AB}
+=
+\mathcal{A}_{\text{direct}}
++
+\mathcal{A}_{\text{indirect}} e^{-i\alpha}
+\]
+
+<p>
+Since the transmission depends on the modulus squared of the Green's function,
+</p>
+
+\[
+T(E) \propto |\mathcal{A}_{AB}|^2
+\]
+
+<p>
+we obtain an interference contribution:
+</p>
+
+\[
+T(E)
+=
+|\mathcal{A}_{\text{direct}}|^2
++
+|\mathcal{A}_{\text{indirect}}|^2
++
+2 \Re
+\left(
+\mathcal{A}_{\text{direct}}^*
+\mathcal{A}_{\text{indirect}} e^{-i\alpha}
+\right)
+\]
+
+<p>
+The last term produces oscillations of the transmission with period \( 2\pi \),
+which is the hallmark of the Aharonov–Bohm effect.
+</p>
+
+<p>
+Constructive interference occurs when
+</p>
+
+\[
+\alpha = 2\pi n
+\]
+
+<p>
+while destructive interference occurs when
+</p>
+
+\[
+\alpha = (2n+1)\pi
+\]
+
+
+
+<h3>4. Antiresonances</h3>
+
+<p>
+An antiresonance appears when the total transmission amplitude vanishes:
+</p>
+
+\[
+\mathcal{A}_{\text{direct}}
++
+\mathcal{A}_{\text{indirect}} e^{-i\alpha}
+=
+0
+\]
+
+<p>
+In this case, complete destructive interference suppresses transport,
+even though each individual path would allow transmission.
+</p>
+
+<p>
+These antiresonances manifest as sharp transmission zeros in the numerical
+simulation.
+</p>
+
+<p>
+They are analogous to the antiresonance phenomenon in two coupled pendulums:
+at certain driving frequencies one normal mode absorbs all energy while
+the other remains motionless.
+</p>
+
+
+
+<h3>5. Physical Interpretation</h3>
+
+<p>
+The magnetic flux does not modify the local energies of the orbitals.
+Instead, it changes the relative phase between quantum paths.
+</p>
+
+<p>
+This demonstrates a purely quantum mechanical effect:
+the conductance depends on the enclosed magnetic flux even if the electrons
+never pass through a region of finite magnetic field.
+Only the total enclosed flux matters.
+</p>
+
+<p>
+The oscillatory dependence of the conductance on \( \alpha \) confirms the
+topological nature of the Aharonov–Bohm effect.
+</p>
 
 
 
