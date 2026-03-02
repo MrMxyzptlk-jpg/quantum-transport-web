@@ -29,7 +29,7 @@
 <body>
 
 <h2>Problem 4 — Polaronic State and Electron Transfer</h2>
-<p class="hint">Interactive model for resonant tunneling with decoherence (DP Model)</p>
+<p class="hint">Polaron formation, Franck–Condon physics and vibronic transmission.</p>
 
 <details class="assignment-box">
     <summary>Problem Assignment</summary>
@@ -72,34 +72,639 @@
     </div>
 </details>
 
-
-<details class="assignment-box" open>
-    <summary>Theoretical Background</summary>
+<details class="assignment-box">
+    <summary>Theoretical Derivation</summary>
 
     <div class="assignment-content">
 
-    <h3>Polaron shift</h3>
+    <details>
+        <summary>a) Polaronic State — Displaced Harmonic Oscillator</summary>
 
-    \[
-        \Lambda = \frac{\lambda^2}{\hbar\omega_0}
-    \]
+        <h3>Two-Level System Without Tunneling</h3>
 
-    \[
-        S = \left(\frac{\lambda}{\hbar\omega_0}\right)^2
-    \]
+        <p>We consider two localized electronic states: donor \( \ket{A} \) and acceptor \( \ket{B} \) as can be seen in the image bellow.</p>
 
-    Franck–Condon factors:
+        <div style="display: flex; justify-content: center;">
+            <img src="./assets/problem4_a.jpeg" style="width: 100%; max-width: 700px">
+        </div>
 
-    \[
-        F_n = e^{-S}\frac{S^n}{n!}
-    \]
+        <p>The acceptor is coupled to a local phonon mode of frequency \( \omega_0 \). We explicitly set tunneling to zero:</p>
 
-    Transmission with phonons:
+        \[
+            V_{AB} = 0
+        \]
 
-    \[
-        T(E) = \Gamma_L\Gamma_R \left|\sum_{n=0}^{N} \frac{F_n}{E-\varepsilon_0+\Lambda-n\hbar\omega_0+i\Gamma} \right|^2
-    \]
+        <p>The Hamiltonian is:</p>
 
+        \[
+            H = \varepsilon_A \ket{A}\bra{A} + \varepsilon_B \ket{B}\bra{B} + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{1}{2}\right) + V_g \ket{B}\bra{B}(\hat{b} + \hat{b}^\dagger)
+        \]
+
+        <p>Only the acceptor state couples to the oscillator. Therefore the problem separates into two independent sectors: donor and aceptor.</p>
+
+        <h4>Donor Sector</h4>
+
+        <p>If the electron is on the donor, the phonon is unaffected:</p>
+
+        \[
+            H_A = \varepsilon_D + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{1}{2}\right)
+        \]
+
+        <p>The eigenenergies are simply:</p>
+
+        \[
+            E_{A,n} = \varepsilon_A + \hbar\omega_0 \left(n + \frac{1}{2}\right)
+        \]
+
+        <h4>Acceptor Sector (Displaced Oscillator)</h4>
+
+        <p>When the electron occupies the acceptor:</p>
+
+        \[
+            H_B = \varepsilon_B + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{1}{2}\right) + V_g (\hat{b} + \hat{b}^\dagger)
+        \]
+
+        <p>This is a harmonic oscillator with a linear term. The latter may be eliminated by completing the square. </p>
+
+        <details> 
+            <summary>The Hamiltonian becomes:</summary>
+
+            \[  \begin{align*}
+                    H_B &= \varepsilon_B + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{1}{2}\right) + V_g (\hat{b} + \hat{b}^\dagger) \\
+                    &= \varepsilon_B + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{V_g}{\hbar\omega_0} (\hat{b} + \hat{b}^\dagger) + \frac{1}{2} \right) \\
+                    &= \varepsilon_B + \hbar\omega_0 \left(\hat{b}^\dagger \hat{b} + \frac{V_g}{\hbar\omega_0} (\hat{b} + \hat{b}^\dagger) + \left( \frac{V_g}{\hbar\omega_0} \right)^2 - \left( \frac{V_g}{\hbar\omega_0} \right)^2 + \frac{1}{2} \right) \\
+                    &= \varepsilon_B + \hbar\omega_0 \left( \left(\hat{b} + \frac{V_g}{\hbar\omega_0} \right) \left( \hat{b}^\dagger + \frac{V_g}{\hbar\omega_0} \right) - \left( \frac{V_g}{\hbar\omega_0} \right)^2 + \frac{1}{2} \right) \\
+                    &= \varepsilon_B + \hbar\omega_0 \left( \left(\hat{b} + \frac{V_g}{\hbar\omega_0} \right) \left( \hat{b}^\dagger + \frac{V_g}{\hbar\omega_0} \right) + \frac{1}{2} \right) - \frac{V_g^2}{\hbar\omega_0} \\
+                \end{align*}
+            \]
+
+            By taking \( \hat{\tilde{b}} = \hat{b} + \frac{V_g}{\hbar\omega_0} \) the Hamiltonian takes the form:
+
+        </details>
+
+        \[
+            H_B = \varepsilon_B - \frac{V_g^2}{\hbar\omega_0} + \hbar\omega_0 \left(\hat{\tilde{b}}^\dagger \hat{\tilde{b}} + \frac{1}{2}\right)
+        \]
+
+        From this expression it can be seen that the energy for the aceptor has been shifted:
+
+        \[
+            \varepsilon_B \rightarrow \varepsilon_B - \frac{V_g^2}{\hbar\omega_0}
+        \]
+
+        <p>This lowering of energy can be thought of as a <strong>binding energy</strong>.</p>
+        Additionally, the oscillator equilibrium position shifts by:
+
+        \[
+            x_0 = -\frac{V_g}{\omega_0^2}
+        \]
+
+
+        Finally, the exact eigenenergies are:
+
+        \[
+            E_{B,n} = \varepsilon_B - \frac{V_g^2}{\hbar\omega_0} + \hbar\omega_0 \left(n + \frac{1}{2}\right)
+        \]
+
+
+        <p>Physically: when the electron occupies the acceptor, nearby ions relax to a new equilibrium configuration.</p>
+
+        <h4>Franck–Condon Overlaps</h4>
+
+        <p>Optical transitions occur vertically in configuration space (ions cannot move during the transition). The transition probability is proportional to the overlap:</p>
+
+        \[
+            \left| \bra{A,n}H_T\ket{B,m} \right|^2 = |V_{AB}|^2 | \braket{\phi_n^{(A)}|\phi_m^{(B)}} |^2
+        \]
+
+        <p>Where \( \phi_n^{(A)} \) and \( \phi_m^{(B)} \) are the eigenfunctions of the donor and aceptor states respectively.</p>
+
+        We may calculate the exact value by considering the particular transition from the groundstate of the donor to an excited state in the aceptor: \( \braket{\phi_0^{(A)}|\phi_m^{(B)}} \). This may be done via direct evaluation of the overlap integrals between the harmonic oscillator eigenfunctions. Alternatively, it may be done with the aid of the Displacement Operator.
+
+        <details>
+            <summary>Mathematical Derivation: Franck-Condon Factors via the Displacement Operator</summary>
+
+            <p>We start with the acceptor Hamiltonian</p>
+
+            \[
+                H_B = \varepsilon_B + \hbar\omega_0 \hat{b}^\dagger \hat{b} + V_g (\hat{b}^\dagger + \hat{b}) + \frac{\hbar\omega_0}{2}
+            \]
+
+            <p>To eliminate the linear coupling term \( V_g(\hat{b}^\dagger + \hat{b}) \), we apply a unitary transformation \( U \). We define the <strong>displacement operator</strong>:</p>
+
+            \[
+                U = \exp\left[ g(\hat{b}^\dagger - \hat{b}) \right]
+            \]
+            <p>where \( g \) is a real constant we need to determine. Using the identity \( U^\dagger \hat{b} U = \hat{b} - g \) and \( U^\dagger \hat{b}^\dagger U = \hat{b}^\dagger - g \), we apply this transformation to the Hamiltonian:</p>
+
+            \[ \begin{align*}
+                    \tilde{H}_B &= U^\dagger H_B U \\
+                    &= \varepsilon_B + \hbar\omega_0 (\hat{b}^\dagger - g)(\hat{b} - g) + V_g (\hat{b}^\dagger - g + \hat{b} - g) + \frac{\hbar\omega_0}{2} \\
+                    &= \varepsilon_B + \hbar\omega_0 \hat{b}^\dagger \hat{b} - (\hbar\omega_0 g - V_g)(\hat{b}^\dagger + \hat{b}) + \hbar\omega_0 g^2 - 2V_g g + \frac{\hbar\omega_0}{2}
+                \end{align*}
+            \]
+
+            <p>To make the linear terms disappear, we force the coefficient of \( (\hat{b}^\dagger + \hat{b}) \) to be zero:</p>
+
+            \[
+                \hbar\omega_0 g - V_g = 0 \implies g = \frac{V_g}{\hbar\omega_0}
+            \]
+
+            <p>Substituting \( g \) back into the transformed Hamiltonian, we get:</p>
+
+            \[
+                \tilde{H}_B = \varepsilon_B - \frac{V_g^2}{\hbar\omega_0} + \hbar\omega_0 \hat{b}^\dagger \hat{b} + \frac{\hbar\omega_0}{2}
+            \]
+
+            <p>The eigenstates of this transformed Hamiltonian are simply the standard Fock states \( \ket{n} \). Therefore, the exact eigenstates of the original coupled Hamiltonian \( H_B \) are the <strong>displaced number states</strong>:</p>
+
+            \[
+                \ket{\tilde{n}}_B = U \ket{n}
+            \]
+
+            <p>The overlap between the unshifted donor vacuum and the shifted acceptor \( n \)-th state then is:</p>
+
+            \[
+                \braket{0|\tilde{n}} = \bra{0} U \ket{n}
+            \]
+
+            <p>To compute this, we take the Hermitian adjoint of the overlap \( \bra{n} U^\dagger \ket{0} \), where \( U^\dagger = \exp[-g(\hat{b}^\dagger - \hat{b})] \). We can split the exponential using the Baker-Campbell-Hausdorff (BCH) formula (specifically the Glauber identity \( e^{X+Y} = e^X e^Y e^{-[X,Y]/2} \)):</p>
+
+            \[
+                U^\dagger = e^{-g \hat{b}^\dagger} e^{g \hat{b}} e^{-g^2/2}
+            \]
+
+            <p>Applying this to the vacuum state \( \ket{0} \):</p>
+
+            \[
+                U^\dagger \ket{0} = e^{-g^2/2} e^{-g \hat{b}^\dagger} \underbrace{e^{g \hat{b}} \ket{0}}_{= \ket{0}} = e^{-g^2/2} e^{-g \hat{b}^\dagger} \ket{0}
+            \]
+
+            <p>Now, expanding the exponential operator \( e^{-g \hat{b}^\dagger} \) as a Taylor series:</p>
+
+            \[
+                U^\dagger \ket{0} = e^{-g^2/2} \sum_{k=0}^{\infty} \frac{(-g)^k}{k!} (\hat{b}^\dagger)^k \ket{0}
+            \]
+
+            <p>Since \( (\hat{b}^\dagger)^k \ket{0} = \sqrt{k!} \ket{k} \), the state is a coherent state:</p>
+
+            \[
+                U^\dagger \ket{0} = e^{-g^2/2} \sum_{k=0}^{\infty} \frac{(-g)^k}{\sqrt{k!}} \ket{k}
+            \]
+
+            <p>The overlap amplitude with the \( n \)-th state is simply the coefficient of \( \ket{n} \) in this expansion:</p>
+
+            \[
+                \bra{n} U^\dagger \ket{0} = e^{-g^2/2} \frac{(-g)^n}{\sqrt{n!}}
+            \]
+
+            <p>The Franck-Condon factor \( F_{0 \to n} \) is the square modulus of the transition amplitude:</p>
+
+            \[
+                F_{0 \to n} = \left| \bra{n} U^\dagger \ket{0} \right|^2 = e^{-g^2} \frac{g^{2n}}{n!}
+            \]
+
+            <p>Finally, we may bustitute \( g^2 \) to arrive at the Poisson distribution:</p>
+        </details>
+        \[
+            F_n = e^{-S}\frac{S^n}{n!}
+        \]
+
+        where
+
+        \[
+            S = \left(\frac{V_g}{\hbar\omega_0}\right)^2
+        \]
+
+        <h4>Physical Interpretation (Franck–Condon Effect)</h4>
+
+        <ul>
+            <li>Ground and excited electronic states have different ionic equilibrium positions.</li>
+            <li>Absorption occurs at fixed ionic configuration (vertical transition).</li>
+            <li>After excitation, ions relax and emit phonons.</li>
+            <li>Emission therefore occurs at lower energy (Stokes shift).</li>
+        </ul>
+
+        <p>The energy difference between absorption and emission equals the relaxation energy \( \frac{V_g^2}{\hbar\omega_0} \).</p>
+
+        <h3>Important Conceptual Result</h3>
+
+        <p>In absence of tunneling:</p>
+
+        <ul>
+            <li>No transport occurs.</li>
+            <li>The acceptor forms a bound polaronic state.</li>
+            <li>The phonon coordinate is displaced.</li>
+        </ul>
+
+        <p>This is the microscopic origin of the reorganization energy that appears later in Marcus–Hush electron transfer and in DBRTD transport.</p>
+
+    </details>
+
+        <hr>
+
+    <details>
+        <summary>b) Marcus–Hush Electron Transfer — Fermi Golden Rule Approach</summary>
+
+        <p>We now restore a weak tunneling coupling between donor \(A\) and acceptor \(B\):</p>
+
+        \[
+            H_T = V_{AB} \ket{A}\bra{B} + V_{AB}^* \ket{B}\bra{A}
+        \]
+
+        <p>We assume:</p>
+
+        <ul>
+            <li>Weak electronic coupling \( |V_{AB}| \ll \hbar\omega_0 \)</li>
+            <li>The phonon bath remains in thermal equilibrium</li>
+            <li>Electron initially localized on donor \(A\)</li>
+        </ul>
+
+        <p>The transfer rate is obtained using <strong>Fermi's Golden Rule</strong>:</p>
+
+        \[
+            k = \frac{2\pi}{\hbar} \sum_f \left| \langle f | H_T | i \rangle \right|^2 \delta(E_f - E_i)
+        \]
+
+        In our case, the initial state is \( \ket{i} = \ket{A, n} \) and the final state is \( \ket{f} = \ket{B, m} \).
+
+        <p>Because the oscillator is displaced when the electron is on \(B\), the phonon wavefunctions are shifted. Therefore:</p>
+
+        \[
+            \bra{B, m} H_T \ket{A, n} = V_{AB}^* \braket{\phi_m(x + x_0) | \phi_n(x)}
+        \]
+
+        <p>These overlaps generate the Franck–Condon factors.</p>
+
+        The Golden Rule becomes:
+
+        \[
+            k = \frac{2\pi}{\hbar} |V_{AB}|^2 \sum_{n,m} P_n \left| \langle \phi_m(x+x_0) | \phi_n(x) \rangle \right|^2 \delta(E_{B,m} - E_{A,n})
+        \]
+
+        where:
+
+        <ul>
+            <li>\(P_n\) = thermal occupation of phonon state \(n\)</li>
+            <li>\(E_{A,n}\), \(E_{B,m}\) from part (a)</li>
+        </ul>
+
+        Using the displaced oscillator solution:
+
+        \[
+            \left| \braket{\phi_m^{(B)} | \phi_n^{(A)}} \right|^2 = F_{n \to m}
+        \]
+
+        In the zero-temperature limit this simplifies to:
+
+        \[
+            k = \frac{2\pi}{\hbar} |V_{AB}|^2 \sum_{m} F_m \delta \left( \varepsilon_B - \frac{V_g^2}{\hbar\omega_0} + m\hbar\omega_0 - \varepsilon_A \right)
+        \]
+
+        with which we recover the result from part a).
+
+        <h4>Classical (High Temperature) Limit</h4>
+
+        When \( k_B T \gg \hbar\omega_0 \) the phonon coordinate behaves classically and the sum over \(m\) becomes a Gaussian integral.
+
+        One obtains the **Marcus–Hush rate**:
+
+        \[
+            k = \frac{2\pi}{\hbar} |V_{AB}|^2 \frac{1}{\sqrt{4\pi \Lambda k_B T}} \exp \left[ -\frac{(\Delta E + \Lambda)^2} {4\Lambda k_B T} \right]
+        \]
+
+        where:
+
+        <ul>
+            <li>\( \Lambda = \frac{V_g^2}{\hbar\omega_0} \) is the reorganization energy</li>
+            <li>\( \Delta E = \varepsilon_B - \varepsilon_A \)</li>
+        </ul>
+
+        <h4>Physical Interpretation</h4>
+
+        <ul>
+            <li>Electron transfer requires matching vibronic energies.</li>
+            <li>The phonon bath absorbs the energy mismatch.</li>
+            <li>The activation barrier is:\[ E_a = \frac{(\Delta E + \Lambda)^2}{4\Lambda}\]</li>
+            <li>Maximum rate occurs at \( \Delta E = -\Lambda \).</li>
+        </ul>
+
+        <!--
+        <h4>Relation to Landau–Zener Picture</h4>
+
+        Marcus originally interpreted transfer as a tunneling process at the crossing of two classical potential energy surfaces.
+
+        The Landau–Zener probability:
+
+        \[
+            P_{LZ} = 1 - \exp\left( -\frac{2\pi |V_{AB}|^2}{\hbar v} \right)
+        \]
+
+        describes non-adiabatic transitions at surface crossing.
+
+        Key difference:
+
+        <ul>
+            <li>Landau–Zener: time-dependent crossing process</li>
+            <li>Golden Rule: stationary transition between vibronic states</li>
+        </ul>
+
+        For weak coupling, both approaches coincide.
+        -->
+
+        <!--
+        <h3>Conceptual Bridge to Transport</h3>
+
+        Notice:
+
+        <ul>
+            <li>Marcus–Hush → incoherent rate equation.</li>
+            <li>Transport in DBRTD → coherent Green’s function formalism.</li>
+            <li>In the weak coupling limit, transmission reduces to Golden Rule rates.</li>
+        </ul>
+
+        Therefore:
+
+        \[
+            \text{Transport with phonons}
+            \longleftrightarrow
+            \text{Marcus electron transfer}
+        \]
+
+        are two limits of the same microscopic Hamiltonian.
+        -->
+
+    </details>
+
+    <hr>
+    <details>
+         <summary>c) Double-Barrier Resonant Tunneling Device (DBRTD) with Local Phonon Coupling</summary>
+
+        <p>We now extend the model to a DBRTD where a single resonant level \( \varepsilon_0 \) is coupled to:</p>
+
+        <ul>
+            <li>Left and right leads</li>
+            <li>A local phonon model</li>
+        </ul>
+
+        The system Hamiltonian is:
+
+        \[ \begin{align}
+            H_S &= H_{el} + H_{ph} + H_{el-ph} \\
+            H_{el} &= \varepsilon_0 \hat{c}_0^\dagger \hat{c}_0 \\
+            H_{ph} &= \hbar\omega_0 \left( \hat{b}^\dagger \hat{b} + \frac{1}{2} \right) \\
+            H_{el-ph} &= -V_g \hat{c}_0^\dagger \hat{c}_0 (\hat{b} + \hat{b}^\dagger)
+        \end{align} \]
+
+        And the coupling to the leads is introduced via the effective Hamiltonian:
+
+        \[
+            H_{eff} = H_S - \Sigma_L - \Sigma_R
+        \]
+
+        <p>As in part (a), the electron–phonon coupling produces a polaron shift:</p>
+
+        \[
+            \Lambda = \frac{V_g^2}{\hbar\omega_0}
+        \]
+
+        so that the renormalized resonant energy is:
+
+        \[
+            \varepsilon_0 \rightarrow \varepsilon_0 - \Lambda
+        \]
+
+
+        We eliminate the linear phonon term in the Hamiltonian in a similar manner as was done for part a). We define the unitary transformation generator based on the electron occupation of the central dot \( \hat{n}_0 = \hat{c}_0^\dagger \hat{c}_0 \):
+
+        \[
+            U = \exp\left[ \frac{V_g}{\hbar\omega_0} \hat{n}_0 (\hat{b}^\dagger - \hat{b}) \right]
+        \]
+
+            <details>
+                <summary>Applying this transformation \( \tilde{H}_{S} = U^\dagger H_{S} U \) and the Baker-Campbell-Hausdorff formula:</summary>
+
+                For simplicity, let's define the exponent of our transformation as the operator \( S \):
+
+                \[
+                    S = g \hat{n}_0 (\hat{b}^\dagger - \hat{b}) \quad \text{where} \quad g = \frac{V_g}{\hbar\omega_0}
+                \]
+
+                <p>So, the unitary operator is \( U = e^S \) and its adjoint is \( U^\dagger = e^{-S} \). To evaluate \( e^{-S} \hat{b} e^S \), we use the <strong>Hadamard Lemma</strong> (a specific form of the Baker-Campbell-Hausdorff formula):</p>
+
+                \[
+                    e^{-S} \hat{b} e^S = \hat{b} + [-S, \hat{b}] + \frac{1}{2!} [-S, [-S, \hat{b}]] + \dots
+                \]
+
+                <p>First, we calculate the commutator \( [-S, \hat{b}] \):</p>
+
+                \[
+                    [-S, \hat{b}] = -g \hat{n}_0 [\hat{b}^\dagger - \hat{b}, \hat{b}] 
+                \]
+
+                <p>Since \( [\hat{b}, \hat{b}] = 0 \) and the standard bosonic commutation relation is \( [\hat{b}^\dagger, \hat{b}] = -1 \), we get:</p>
+
+                \[
+                    [-S, \hat{b}] = -g \hat{n}_0 (-1) = +g \hat{n}_0
+                \]
+
+                <p>Now, we check the next term in the series, \( [-S, +g \hat{n}_0] \). Because \( \hat{n}_0 \) commutes with itself (\( [\hat{n}_0, \hat{n}_0] = 0 \)), this term is exactly zero. The infinite series truncates immediately!</p>
+
+                <p>The transformed phonon operators are simply:</p>
+
+                \[ \begin{align}
+                    U^\dagger \hat{b} U &= \hat{b} + g \hat{n}_0 \\
+                    U^\dagger \hat{b}^\dagger U &= \hat{b}^\dagger + g \hat{n}_0
+                \end{align} \]
+
+                Substituting back \( g = \frac{V_g}{\hbar\omega_0} \):
+            </details>
+
+            \[
+                U^\dagger \hat{b} U = \hat{b} - \frac{V_g}{\hbar\omega_0} \hat{n}_0
+            \]
+
+
+            <p>Now we substitute these dressed operators into the Hamiltonian.</p>
+
+            <details>
+                <summary><i>Transforming \( H_{el} \):</i></summary>
+
+                <p>Since \( U \) is a function of \( \hat{n}_0 \), they trivially commute: \( [\hat{n}_0, U] = 0 \), meaning \( \hat{n}_0 \) is invariant under the transformation. The resulting electronic contribution is simply:</p>
+            </details>
+
+            \[
+                \tilde{H}_{el} = U^\dagger (\varepsilon_0 \hat{n}_0) U = \varepsilon_0 \hat{n}_0
+            \]
+
+            <details>
+                <summary><i>Transforming \( H_{ph} \):</i></summary>
+
+                \[ \begin{align}
+                    \tilde{H}_{ph} &= \hbar\omega_0 (U^\dagger \hat{b}^\dagger U)(U^\dagger \hat{b} U) + \frac{\hbar\omega_0}{2} \\
+                    &= \hbar\omega_0 (\hat{b}^\dagger + g \hat{n}_0)(\hat{b} + g \hat{n}_0) + \frac{\hbar\omega_0}{2} \\
+                    &= \hbar\omega_0 \left( \hat{b}^\dagger \hat{b} + g \hat{n}_0 \hat{b} + g \hat{n}_0 \hat{b}^\dagger + g^2 \hat{n}_0^2 \right) + \frac{\hbar\omega_0}{2}
+                \end{align} \]
+
+                <p>Since electrons are fermions, \( \hat{n}_0^2 = \hat{n}_0 \) (the dot can only hold 0 or 1 electron). Grouping terms gives:</p>
+            </details>
+
+            \[
+                \tilde{H}_{ph} = \hbar\omega_0 \hat{b}^\dagger \hat{b} + \hbar\omega_0 g \hat{n}_0 (\hat{b} + \hat{b}^\dagger) + \hbar\omega_0 g^2 \hat{n}_0 + \frac{\hbar\omega_0}{2}
+            \]
+
+            <details>
+                <summary><i>Transforming \( H_{el-ph} \):</i></summary>
+
+                \[ \begin{align}
+                    \tilde{H}_{el-ph} &= -V_g \hat{n}_0 \left( U^\dagger \hat{b} U + U^\dagger \hat{b}^\dagger U \right) \\
+                    &= -V_g \hat{n}_0 \left( \hat{b} + g \hat{n}_0 + \hat{b}^\dagger + g \hat{n}_0 \right) \\
+                    &= -V_g \hat{n}_0 (\hat{b} + \hat{b}^\dagger) - 2V_g g \hat{n}_0^2
+                \end{align} \]
+
+                Again, using \( \hat{n}_0^2 = \hat{n}_0 \) for fermions:
+            </details>
+
+            \[
+                \tilde{H}_{el-ph} = -V_g \hat{n}_0 (\hat{b} + \hat{b}^\dagger) - 2V_g g \hat{n}_0
+            \]
+
+            <details>
+                <summary><i>The Final Transformed System Hamiltonian:</i></summary>
+
+                <p>Now, we add the transformed parts together:</p>
+
+                \[
+                    \tilde{H}_S = \tilde{H}_{el} + \tilde{H}_{ph} + \tilde{H}_{el-ph}
+                \]
+
+                Looking at the terms linear in \( (\hat{b} + \hat{b}^\dagger) \):
+
+                \[
+                    \left( \hbar\omega_0 g - V_g \right) \hat{n}_0 (\hat{b} + \hat{b}^\dagger)
+                \]
+
+                <p>Remembering that we defined \( g = V_g / \hbar\omega_0 \), the coefficient \( \hbar\omega_0 g - V_g = 0 \). <strong>The linear electron-phonon coupling is exactly cancelled!</strong></p>
+
+                Finally, we collect the remaining terms proportional to \( \hat{n}_0 \):
+
+                \[
+                    (\hbar\omega_0 g^2 - 2V_g g)\hat{n}_0
+                \]
+
+                Substituting \( g = V_g / \hbar\omega_0 \):
+
+                \[
+                    \hbar\omega_0 \left(\frac{V_g}{\hbar\omega_0}\right)^2 - 2V_g \left(\frac{V_g}{\hbar\omega_0}\right) = \frac{V_g^2}{\hbar\omega_0} - \frac{2V_g^2}{\hbar\omega_0} = -\frac{V_g^2}{\hbar\omega_0}
+                \]
+
+                This leaves us exactly with the polaron reorganization energy, \( -\Lambda \). Therefore, the final diagonalized internal Hamiltonian is:
+            </details>
+
+                \[
+                    \tilde{H}_S = (\varepsilon_0 - \Lambda)\hat{n}_0 + \hbar\omega_0\left( \hat{b}^\dagger \hat{b} + \frac{1}{2} \right)
+                \]
+
+                <!--
+                <p><strong>Note on Transport:</strong> Because \( \tilde{H}_S \) is entirely diagonal, the inelastic transitions are no longer internal. Instead, the creation/annihilation operators connecting the dot to the macroscopic leads become dressed by the phonon displacement operator \( \hat{X} \). Physically, this means every time an electron burrows into or out of the dot from the leads, it imparts a "kick" to the local oscillator, generating phonon sidebands in the transmission spectrum.</p>
+                -->
+
+                <p>Now, we need to calculate the exact probability amplitude for an electron to tunnel onto the dot and change the phonon bath from an initial state \( n \) to a final state \( m \). Using the fundamental definition of the resolvent (Green's function):</p>
+
+                \[
+                    G = \left( E - H_{eff} \right)^{-1}
+                \]
+
+                we may derive the Green's function in a couple of ways.
+           <details>
+                <summary>1. Via Unitary Transformation:</summary>
+
+                <p>Because \( H_{eff} \) contains the off-diagonal coupling \( -V_g \hat{n}_0 (\hat{b} + \hat{b}^\dagger) \), directly inverting the matrix \( (E - H_{eff}) \) is mathematically nightmarish. Instead, we use the diagonal (polaron) basis. Since \( U \) is a unitary matrix, it passes smoothly into the denominator, transforming the Hamiltonian exactly as we derived earlier:</p>
+
+                \[
+                    U^\dagger \frac{1}{E - H_{eff}} U = \frac{1}{E - U^\dagger H_{eff} U} = \frac{1}{E - \tilde{H}_{eff}}
+                \]
+
+                Then, an element of the Green's function is:
+
+                \[
+                    G_{mn}(E) = \bra{1, m} U \frac{1}{E - \tilde{H}_{eff}} U^\dagger \ket{1, n}
+                \]
+
+                <p>Now we evaluate how \( U^\dagger \) acts on the bare state on the right. Since the state contains 1 electron (\( \hat{n}_0 = 1 \)), the operator \( U^\dagger \) acts entirely on the phonon subspace as the displacement operator \( \hat{X}^\dagger \):</p>
+
+                \[
+                    U^\dagger | 1, n \rangle = \exp[-g(1)(\hat{b}^\dagger - \hat{b})] | 1, n \rangle = | 1 \rangle \otimes \hat{X}^\dagger | n \rangle
+                \]
+
+                <p>Similarly, acting to the left on the bra:</p>
+
+                \[
+                    \langle 1, m | U = \langle 1 | \otimes \langle m | \hat{X}
+                \]
+
+                <p>Substituting these back into our matrix element, the electron part factors out (since the dot is occupied), leaving an equation purely in the phonon subspace:</p>
+
+                \[
+                    G_{mn}(E) = \bra{m} \hat{X} \left( \frac{1}{E - \tilde{\varepsilon}_0 - \hbar\omega_0 \hat{b}^\dagger \hat{b} - \Sigma(E)} \right) \hat{X}^\dagger \ket{n}
+                \]
+
+                <p>Because the denominator is now perfectly diagonal in the phonon number operator \( \hat{b}^\dagger \hat{b} \), we can easily evaluate it by inserting a complete set of intermediate phonon states, \( \sum_k \ket{k}\bra{k} = I \):</p>
+
+            </details>
+
+            \[
+                G_{mn}(E) = \sum_{k=0}^{\infty} \bra{m} \hat{X} \ket{k} \left[ \frac{1}{E - \tilde{\varepsilon}_0 - k\hbar\omega_0 - \Sigma(E)} \right] \bra{k} \hat{X}^\dagger \ket{n}
+            \]
+
+            <p>The transition probability from any initial state \(n\) to any final state \(m\) requires evaluating the generalized Franck-Condon overlap \( F_{n\to m} = |\langle m | \hat{X} | n \rangle|^2 \). For the displaced harmonic oscillator, this evaluates analytically to:</p>
+
+            \[
+                F_{n\to m} = \left| \bra{m} \hat{X} \ket{n} \right|^2 = e^{-S} \frac{n!}{m!} S^{(m-n)} \left[ L_n^{(m-n)}(S) \right]^2
+            \]
+
+            <p>where \( S = g^2 = (V_g/\hbar\omega_0)^2 \) and \( L_n^{(m-n)} \) are the associated Laguerre polynomials. If we assume the Zero Temperature limit (\(n=0\)), this immediately collapses back to the standard Poisson distribution \( F_{0\to m} = e^{-S} S^m / m! \).</p>
+
+            <details>
+                <summary>2. Via Recursive Decimation:</summary>
+
+                <p>Alternatively, the Hamiltonian can be mapped onto a 1D semi-infinite tight-binding chain where each "site" represents a phonon number \( k \). The coupling between site \( k \) and \( k+1 \) is the off-diagonal interaction \( V_g\sqrt{k+1} \). The Green's function is then found by "decimating" the higher-order sites into a continued fraction:</p>
+
+                \[ 
+                    G_{00}(E) = \frac{1}{E - \varepsilon_0 - \Sigma_{leads} - \Sigma_{ph}(E)}
+                \]
+
+                <p>Where the phonon self-energy is:</p>
+
+                \[ 
+                    \Sigma_{ph}(E) = \frac{V_g^2}{E - (\varepsilon_0 + \hbar\omega_0) - \Sigma_{leads} - \frac{2V_g^2}{E - (\varepsilon_0 + 2\hbar\omega_0) - \Sigma_{leads} - \dots}}
+                \]
+
+                <ul>
+                    <li><strong>Justification:</strong> This is a non-perturbative renormalization approach. It shows that the electron-phonon interaction acts as an energy-dependent complex potential (self-energy) that modifies the resonant level.</li>
+                </ul>
+            </details>
+
+            In this case, the self energy is the main protagonist. It is calculated recursively, accounting for phonon absorption/emission.
+
+            <p>The total transmission is the sum of all inelastic channels where the electron leaves the dot having exchanged energy with the phonon mode:</p>
+
+            \[
+                T_{tot} = \sum_m T_{n \rightarrow m}
+            \]
+
+            We already know the form of each individual transmission:
+
+            \[
+                T_{n \to m}(E) = 4\Gamma_L(E) \Gamma_R(E_{out}) |G_{mn}(E)|^2
+            \]
+
+            So the total transmitance can be obtained numerically after sufficient convergence.
+        </details>
+
+        <hr>
+        <b>Note: the numerical simulations for this model turn out to be quite costly. The example bellow heavily limits the convergence parameter Nmax (maximum number of absorbed/emmited phonons). The code used for the examples was implemented in python and can be found at <a href="https://github.com/MrMxyzptlk-jpg/quantum-transport-web.git" target="_blank">github</a> along with the source of this web page.</b>
+    </details>
     </div>
 </details>
 
@@ -109,40 +714,46 @@
 
         <div class="controls">
 
-            <label>ε₀ =  <span id="eps0Val">0</span>
+            <label>ε₀ =  <span id="eps0Val">-1.5</span>
                 <span class="left-label">-2</span>
-                <input type="range" id="eps0" min="-3" max="3" step="0.1" value="0">
+                <input type="range" id="eps0" min="-2" max="2" step="0.1" value="-1.5">
                 <span class="right-label">2</span>
             </label>
 
-            <label>Γ<sub>L</sub> = <span id="gammaLVal">1</span>
+            <label>V<sub>L</sub> = <span id="VLVal">0.1</span>
                 <span class="left-label">0.05</span>
-                <input type="range" id="gammaL" min="0.05" max="2" step="0.05" value="1">
+                <input type="range" id="VL" min="0.05" max="2" step="0.05" value="0.1">
                 <span class="right-label">2</span>
             </label>
 
-            <label>Γ<sub>R</sub> = <span id="gammaRVal">1</span>
+            <label>V<sub>R</sub> = <span id="VRVal">0.1</span>
                 <span class="left-label">0.05</span>
-                <input type="range" id="gammaR" min="0.05" max="2" step="0.05" value="1">
+                <input type="range" id="VR" min="0.05" max="2" step="0.05" value="0.1">
                 <span class="right-label">2</span>
             </label>
 
-            <label>λ = <span id="lambdaVal">0</span>
+            <label>V<sub>g</sub> = <span id="VgVal">0.1</span>
                 <span class="left-label">0</span>
-                <input type="range" id="lambda" min="0" max="2" step="0.05" value="0">
+                <input type="range" id="Vg" min="0" max="0.5" step="0.005" value="0.1">
+                <span class="right-label">0.5</span>
+            </label>
+
+            <label>ω₀ = <span id="omegaVal">0.2</span>
+                <span class="left-label">0.05</span>
+                <input type="range" id="omega" min="0.05" max="2" step="0.05" value="0.2">
                 <span class="right-label">2</span>
             </label>
 
-            <label>ω₀ = <span id="omegaVal">1</span>
-                <span class="left-label">0.2</span>
-                <input type="range" id="omega" min="0.05" max="2" step="0.05" value="1">
-                <span class="right-label">2</span>
-            </label>
-
-            <label>Nmax = <span id="nmaxVal">4</span>
+            <label>n (initial) = <span id="initialNVal">0</span>
                 <span class="left-label">0</span>
-                <input type="range" id="nmax" min="0" max="8" step="1" value="0">
-                <span class="right-label">8</span>
+                <input type="range" id="initialN" min="0" max="10" step="1" value="0">
+                <span class="right-label">10</span>
+            </label>
+
+            <label>Nmax = <span id="nmaxVal">15</span>
+                <span class="left-label">1</span>
+                <input type="range" id="nmax" min="1" max="15" step="1" value="15">
+                <span class="right-label">15</span>
             </label>
 
         </div>
