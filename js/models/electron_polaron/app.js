@@ -94,119 +94,162 @@ function getSelfEnergy(E, V, t_lead = 1.0) {
 }
 
 function transmission(E, eps0, VL, VR, Vg, omega, initialN, nmax){
-    // --- Lead self-energies at incoming energy ---
     const sigL = getSelfEnergy(E, VL);
     const sigR = getSelfEnergy(E, VR);
 
     const GammaL = sigL.Gamma;
-    const DeltaL = sigL.Delta;
-
-    const GammaR = sigR.Gamma;
-    const DeltaR = sigR.Delta;
-
-    // If no injection possible → zero transmission
     if (GammaL === 0) return 0;
 
-    const GammaTot = GammaL + GammaR;
-    const DeltaTot = DeltaL + DeltaR;
+    const Sigma_leads_real = sigL.Delta + sigR.Delta;
+    const Sigma_leads_imag = - (sigL.Gamma + sigR.Gamma);
 
-    // --- Build continued fraction Σ_n ---
-    let SigmaR = new Array(nmax + 1).fill(0);
-    let SigmaI = new Array(nmax + 1).fill(0);
+    const lower = 0;
+    const upper = initialN + nmax;
 
-    // Boundary condition at truncation
-    SigmaR[nmax] = 0;
-    SigmaI[nmax] = 0;
+    // =====================================================
+    // 1) BUILD FULL UPWARD CONTINUED FRACTION ARRAY
+    // =====================================================
 
-    for(let n = nmax - 1; n >= 0; n--){
+    let SigmaUp_real = new Array(upper+1).fill(0);
+    let SigmaUp_imag = new Array(upper+1).fill(0);
 
-        const coupling2 = (Vg * Math.sqrt(n + 1))**2;
+    for(let n = upper-1; n >= 0; n--){
 
-        const denomReal =
-            E
-            - eps0
-            - (n + 1) * omega
-            - DeltaTot
-            - SigmaR[n + 1];
+        const coupling2 = (Vg * Math.sqrt(n+1))**2;
 
-        const denomImag =
-            - GammaTot
-            - SigmaI[n + 1];
+        const denomR =
+            E - eps0 - (n+1)*omega
+            - Sigma_leads_real
+            - SigmaUp_real[n+1];
 
-        const denomAbs2 = denomReal*denomReal + denomImag*denomImag;
+        const denomI =
+            Sigma_leads_imag
+            - SigmaUp_imag[n+1];
 
-        SigmaR[n] =  coupling2 * denomReal / denomAbs2;
-        SigmaI[n] = -coupling2 * denomImag / denomAbs2;
+        const abs2 = denomR*denomR + denomI*denomI;
+
+        SigmaUp_real[n] =  coupling2 * denomR / abs2;
+        SigmaUp_imag[n] = -coupling2 * denomI / abs2;
     }
 
-    // --- Diagonal Green function G_{n0,n0} ---
+    // =====================================================
+    // 2) BUILD FULL DOWNWARD CONTINUED FRACTION ARRAY
+    // =====================================================
 
-    const D0_real =
-        E
-        - eps0
-        - initialN * omega
-        - DeltaTot
-        - SigmaR[initialN];
+    let SigmaDown_real = new Array(upper+1).fill(0);
+    let SigmaDown_imag = new Array(upper+1).fill(0);
 
-    const D0_imag =
-        - GammaTot
-        - SigmaI[initialN];
+    for(let n = 1; n <= upper; n++){
 
-    const D0_abs2 = D0_real*D0_real + D0_imag*D0_imag;
+        const coupling2 = (Vg * Math.sqrt(n))**2;
 
-    let G_real =  D0_real / D0_abs2;
-    let G_imag = -D0_imag / D0_abs2;
+        const denomR =
+            E - eps0 - (n-1)*omega
+            - Sigma_leads_real
+            - SigmaDown_real[n-1];
 
-    // Store G_{m,n0}
-    let GmR = new Array(nmax + 1).fill(0);
-    let GmI = new Array(nmax + 1).fill(0);
+        const denomI =
+            Sigma_leads_imag
+            - SigmaDown_imag[n-1];
 
-    GmR[initialN] = G_real;
-    GmI[initialN] = G_imag;
+        const abs2 = denomR*denomR + denomI*denomI;
 
-    // --- Propagate upward ---
-    for(let n = initialN; n < nmax; n++){
-
-        const coupling = Vg * Math.sqrt(n + 1);
-
-        const denomReal =
-            E
-            - eps0
-            - (n + 1) * omega
-            - DeltaTot
-            - SigmaR[n + 1];
-
-        const denomImag =
-            - GammaTot
-            - SigmaI[n + 1];
-
-        const denomAbs2 = denomReal*denomReal + denomImag*denomImag;
-
-        const factorReal =  coupling * denomReal / denomAbs2;
-        const factorImag = -coupling * denomImag / denomAbs2;
-
-        GmR[n+1] =
-            factorReal * GmR[n] - factorImag * GmI[n];
-
-        GmI[n+1] =
-            factorReal * GmI[n] + factorImag * GmR[n];
+        SigmaDown_real[n] =  coupling2 * denomR / abs2;
+        SigmaDown_imag[n] = -coupling2 * denomI / abs2;
     }
 
-    // --- Compute total inelastic transmission ---
+    // =====================================================
+    // 3) DIAGONAL GREEN FUNCTION AT initialN
+    // =====================================================
+
+    const D_real =
+        E - eps0 - initialN*omega
+        - Sigma_leads_real
+        - SigmaUp_real[initialN]
+        - SigmaDown_real[initialN];
+
+    const D_imag =
+        Sigma_leads_imag
+        - SigmaUp_imag[initialN]
+        - SigmaDown_imag[initialN];
+
+    const D_abs2 = D_real*D_real + D_imag*D_imag;
+
+    const G0_real =  D_real / D_abs2;
+    const G0_imag = -D_imag / D_abs2;
+
+    // =====================================================
+    // 4) PROPAGATE BOTH DIRECTIONS
+    // =====================================================
+
+    let GmR = new Array(upper+1).fill(0);
+    let GmI = new Array(upper+1).fill(0);
+
+    GmR[initialN] = G0_real;
+    GmI[initialN] = G0_imag;
+
+    // --- Upward
+    for(let n = initialN; n < upper; n++){
+
+        const coupling = Vg * Math.sqrt(n+1);
+
+        const denomR =
+            E - eps0 - (n+1)*omega
+            - Sigma_leads_real
+            - SigmaUp_real[n+1];
+
+        const denomI =
+            Sigma_leads_imag
+            - SigmaUp_imag[n+1];
+
+        const abs2 = denomR*denomR + denomI*denomI;
+
+        const fR =  coupling * denomR / abs2;
+        const fI = -coupling * denomI / abs2;
+
+        GmR[n+1] = fR*GmR[n] - fI*GmI[n];
+        GmI[n+1] = fR*GmI[n] + fI*GmR[n];
+    }
+
+    // --- Downward
+    for(let n = initialN; n > 0; n--){
+
+        const coupling = Vg * Math.sqrt(n);
+
+        const denomR =
+            E - eps0 - (n-1)*omega
+            - Sigma_leads_real
+            - SigmaDown_real[n-1];
+
+        const denomI =
+            Sigma_leads_imag
+            - SigmaDown_imag[n-1];
+
+        const abs2 = denomR*denomR + denomI*denomI;
+
+        const fR =  coupling * denomR / abs2;
+        const fI = -coupling * denomI / abs2;
+
+        GmR[n-1] = fR*GmR[n] - fI*GmI[n];
+        GmI[n-1] = fR*GmI[n] + fI*GmR[n];
+    }
+
+    // =====================================================
+    // 5) SUM TRANSMISSION
+    // =====================================================
+
     let T_total = 0;
 
-    for(let m = 0; m <= nmax; m++){
+    for(let m = 0; m <= upper; m++){
 
-        const E_out = E - (m - initialN) * omega;
-
+        const E_out = E - (m - initialN)*omega;
         const sigR_out = getSelfEnergy(E_out, VR);
-        const GammaR_out = sigR_out.Gamma;
 
-        if (GammaR_out === 0) continue;
+        if(sigR_out.Gamma === 0) continue;
 
-        const G_abs2 = GmR[m]*GmR[m] + GmI[m]*GmI[m];
+        const Gabs2 = GmR[m]*GmR[m] + GmI[m]*GmI[m];
 
-        T_total += 4 * GammaL * GammaR_out * G_abs2;
+        T_total += 4 * GammaL * sigR_out.Gamma * Gabs2;
     }
 
     return T_total;
